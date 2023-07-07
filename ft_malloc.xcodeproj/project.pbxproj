@@ -6,10 +6,15 @@
 	objectVersion = 56;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		BFB4EA0D2A583E73009376F1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = BFB4EA0C2A583E73009376F1 /* Makefile */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libft_malloc.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFB4EA092A583CC5009376F1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BFB4EA0A2A583D20009376F1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		BFB4EA0C2A583E73009376F1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +31,7 @@
 		BFAC2CE02A583C3E000FC0EC = {
 			isa = PBXGroup;
 			children = (
+				BFB4EA0C2A583E73009376F1 /* Makefile */,
 				BFB4EA0A2A583D20009376F1 /* README.md */,
 				BFB4EA092A583CC5009376F1 /* .gitignore */,
 				BFAC2CEA2A583C3E000FC0EC /* Products */,
@@ -107,6 +113,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFB4EA0D2A583E73009376F1 /* Makefile in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
