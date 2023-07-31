@@ -36,10 +36,13 @@ void * allocateBigChunk(struct pageHeader ** begin, size_t size) {
     
     page->size = size;
     
-    page->previous     = NULL;
-    page->next         = *begin;
-    (*begin)->previous = page;
-    *begin             = page;
+    page->previous = NULL;
+    page->next     = *begin;
+    
+    if (*begin != NULL) {
+        (*begin)->previous = page;
+    }
+    *begin = page;
     
     return page + sizeof(struct pageHeader);
 }
