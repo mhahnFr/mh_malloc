@@ -2,6 +2,14 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#include "malloc_internal.h"
+
+static struct {
+    struct pageHeader * smalls;
+    struct pageHeader * mids;
+    struct pageHeader * bigs;
+} pages;
+
 void * malloc(size_t size) {
     (void) size;
     

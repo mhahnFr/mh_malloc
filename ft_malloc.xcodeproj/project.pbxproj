@@ -14,6 +14,7 @@
 /* Begin PBXFileReference section */
 		BF2310B22A58415200AB9F35 /* malloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = malloc.h; sourceTree = "<group>"; };
 		BF2310B32A5843EF00AB9F35 /* malloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = malloc.c; sourceTree = "<group>"; };
+		BF30D84B2A7802BB001D4EBF /* malloc_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = malloc_internal.h; sourceTree = "<group>"; };
 		BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libft_malloc.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFB4EA092A583CC5009376F1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BFB4EA0A2A583D20009376F1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -35,6 +36,7 @@
 			isa = PBXGroup;
 			children = (
 				BF2310B32A5843EF00AB9F35 /* malloc.c */,
+				BF30D84B2A7802BB001D4EBF /* malloc_internal.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
