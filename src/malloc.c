@@ -8,13 +8,19 @@ static struct {
     struct pageHeader * smalls;
     struct pageHeader * mids;
     struct pageHeader * bigs;
-} pages;
+} pages = {
+    .smalls = NULL,
+    .mids   = NULL,
+    .bigs   = NULL
+};
 
 void * malloc(size_t size) {
-    (void) size;
-    
-    errno = ENOMEM;
-    return NULL;
+    if (size <= MALLOC_SMALL_SIZE) {
+        return allocateSmallChunk(&pages.smalls);
+    } else if (size <= MALLOC_MIDDLE_SIZE) {
+        return allocateMediumChunk(&pages.mids, size);
+    }
+    return allocateBigChunk(&pages.bigs, size);
 }
 
 void * calloc(size_t count, size_t size) {
