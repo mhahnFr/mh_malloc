@@ -2,8 +2,8 @@ SRCS = $(shell find . -name \*.c)
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 DEPS = $(patsubst %.c, %.d, $(SRCS))
 
-CFLAGS = -Wall -Wextra
-LDFLAGS =
+CFLAGS = -Wall -Wextra -fPIC -g
+LDFLAGS = -shared -fPIC
 
 NAME = libmalloc.so
 
@@ -16,11 +16,11 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -MMD -MP -c -o $@ $<
 	
 clean:
-	- $(RM) -f $(OBJS)
-	- $(RM) -f $(DEPS)
+	- $(RM) $(OBJS)
+	- $(RM) $(DEPS)
 	
 fclean: clean
-	- $(RM) -f $(NAME)
+	- $(RM) $(NAME)
 	
 re: fclean
 	$(MAKE) all
