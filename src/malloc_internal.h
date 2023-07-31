@@ -1,6 +1,8 @@
 #ifndef malloc_internal_h
 #define malloc_internal_h
 
+#include <stddef.h>
+
 #define MALLOC_SMALL_SIZE  64
 #define MALLOC_MIDDLE_SIZE 256
 
