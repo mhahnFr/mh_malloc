@@ -13,7 +13,6 @@
 		BF30D8512A780D9A001D4EBF /* pageHeader.c in Sources */ = {isa = PBXBuildFile; fileRef = BF30D84F2A780D9A001D4EBF /* pageHeader.c */; };
 		BF30D8542A78103B001D4EBF /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = BF30D8522A78103B001D4EBF /* error.h */; };
 		BF30D8552A78103B001D4EBF /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = BF30D8532A78103B001D4EBF /* error.c */; };
-		BFB4EA0D2A583E73009376F1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = BFB4EA0C2A583E73009376F1 /* Makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -153,7 +152,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFB4EA0D2A583E73009376F1 /* Makefile in Sources */,
 				BF30D84D2A7809C1001D4EBF /* malloc_internal.c in Sources */,
 				BF2310B42A5843EF00AB9F35 /* malloc.c in Sources */,
 				BF30D8512A780D9A001D4EBF /* pageHeader.c in Sources */,
