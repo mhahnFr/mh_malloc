@@ -3,17 +3,10 @@
 
 #include <stddef.h>
 
+#include "pageHeader.h"
+
 #define MALLOC_SMALL_SIZE  64
 #define MALLOC_MIDDLE_SIZE 256
-
-struct pageHeader {
-    size_t size;
-    
-    struct pageHeader * previous;
-    struct pageHeader * next;
-};
-
-struct pageHeader * allocatePage(void);
 
 struct chunk {
     size_t size;
