@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -5,4 +6,5 @@
 
 void error(char * message) {
     write(2, message, strlen(message));
+    abort();
 }

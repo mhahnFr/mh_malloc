@@ -4,7 +4,7 @@
 
 #include "pageHeader.h"
 
-#include "error.h"
+#include "warn.h"
 
 struct pageHeader * allocatePage(void) {
     struct pageHeader * toReturn = mmap(NULL,
@@ -15,7 +15,7 @@ struct pageHeader * allocatePage(void) {
                           /* offset: */ getpagesize());
     
     if (toReturn == NULL) {
-        error("Unable to allocate page!");
+        malloc_warn("Unable to allocate page!");
     }
     return toReturn;
 }
