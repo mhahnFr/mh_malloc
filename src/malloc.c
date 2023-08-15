@@ -1,3 +1,5 @@
+#include <errno.h>
+#include <limits.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -5,6 +7,7 @@
 
 #include "error.h"
 #include "malloc_internal.h"
+#include "warn.h"
 
 static struct {
     struct pageHeader * smalls;
@@ -26,9 +29,15 @@ void * malloc(size_t size) {
 }
 
 void * calloc(size_t count, size_t size) {
+    if (count > SIZE_MAX / size) {
+        malloc_warn("Allocation of more than SIZE_MAX bytes blocked");
+        errno = ENOMEM;
+        return NULL;
+    }
+    
     void * chunk;
     bool   zeroed    = false;
-    size_t totalSize = size * count; // FIXME: Overflow check!
+    size_t totalSize = size * count;
     
     if (size <= MALLOC_SMALL_SIZE) {
         chunk = allocateSmallChunk(&pages.smalls);
