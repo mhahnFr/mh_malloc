@@ -1,4 +1,6 @@
-SRCS = $(shell find . -name \*.c \! -path \*test\*)
+TEST_DIR  = ./test
+
+SRCS = $(shell find . -name \*.c \! -path $(TEST_DIR)\*)
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 DEPS = $(patsubst %.c, %.d, $(SRCS))
 
@@ -7,7 +9,6 @@ LDFLAGS = -shared -fPIC
 
 NAME = libmalloc.so
 
-TEST_DIR  = ./test
 TEST_NAME = test.exe
 TEST_SRCS = $(shell find $(TEST_DIR) -name \*.c)
 TEST_OBJS = $(patsubst %.c, %.o, $(TEST_SRCS))
