@@ -5,4 +5,5 @@
 
 void malloc_warn(const char * message) {
     write(2, message, strlen(message));
+    write(2, "\n", 1);
 }

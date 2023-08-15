@@ -6,5 +6,6 @@
 
 void error(char * message) {
     write(2, message, strlen(message));
+    write(2, "\n", 1);
     abort();
 }
