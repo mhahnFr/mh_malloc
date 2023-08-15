@@ -18,4 +18,6 @@ void * allocateMediumChunk(struct pageHeader ** begin, size_t size);
 
 void * allocateSmallChunk(struct pageHeader ** begin);
 
+struct pageHeader * findPageFor(void * pointer, struct pageHeader * pages);
+
 #endif /* malloc_internal_h */
