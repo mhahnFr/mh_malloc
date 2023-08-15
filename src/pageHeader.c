@@ -19,3 +19,8 @@ struct pageHeader * allocatePage(void) {
     }
     return toReturn;
 }
+
+bool page_deallocate(struct pageHeader * self) {
+    // TODO: unlink page
+    return munmap(self, self->size) == 0;
+}

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "error.h"
 #include "malloc_internal.h"
 
 static struct {
@@ -51,5 +52,12 @@ void * realloc(void * ptr, size_t newSize) {
 }
 
 void free(void * ptr) {
-    (void) ptr;
+    struct pageHeader * page = findPageFor(ptr, pages.bigs);
+    if (page != NULL) {
+        if (!page_deallocate(page)) {
+            error("Pointer being freed was not allocated!");
+        }
+        return;
+    }
+    // TODO: Search in the managed pages
 }

@@ -11,6 +11,8 @@ int main(void) {
         printf(" %c ", str[i]);
     }
     printf("\n");
+    free(str);
+    free(str);
 
     return 0;
 }
