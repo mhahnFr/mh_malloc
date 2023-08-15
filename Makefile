@@ -1,4 +1,4 @@
-SRCS = $(shell find . -name \*.c)
+SRCS = $(shell find . -name \*.c \! -path \*test\*)
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 DEPS = $(patsubst %.c, %.d, $(SRCS))
 
@@ -7,7 +7,21 @@ LDFLAGS = -shared -fPIC
 
 NAME = libmalloc.so
 
+TEST_DIR  = ./test
+TEST_NAME = test.exe
+TEST_SRCS = $(shell find $(TEST_DIR) -name \*.c)
+TEST_OBJS = $(patsubst %.c, %.o, $(TEST_SRCS))
+TEST_DEPS = $(patsubst %.c, %.d, $(TEST_SRCS))
+
+TEST_LDFLAGS =
+
 all: $(NAME)
+
+run: $(TEST_NAME)
+	./$(TEST_NAME)
+
+$(TEST_NAME): $(NAME) $(TEST_OBJS)
+	$(CC) $(TEST_LDFLAGS) $(TEST_OBJS) $(NAME) -o $(TEST_NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(LDFLAGS) -o $(NAME) $(OBJS)
@@ -25,6 +39,7 @@ fclean: clean
 re: fclean
 	$(MAKE) all
 	
-.PHONY: clean fclean re all
+.PHONY: clean fclean re all run
 
 -include $(DEPS)
+-include $(TEST_DEPS)

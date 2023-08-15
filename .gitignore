@@ -7,5 +7,6 @@
 *.d
 *.so
 *.dylib
+*.exe
 
 xcuserdata/
