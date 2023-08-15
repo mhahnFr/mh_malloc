@@ -13,7 +13,31 @@
 		BF30D8512A780D9A001D4EBF /* pageHeader.c in Sources */ = {isa = PBXBuildFile; fileRef = BF30D84F2A780D9A001D4EBF /* pageHeader.c */; };
 		BF30D8542A78103B001D4EBF /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = BF30D8522A78103B001D4EBF /* error.h */; };
 		BF30D8552A78103B001D4EBF /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = BF30D8532A78103B001D4EBF /* error.c */; };
+		BF879D5B2A8BA0D700B1A298 /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = BF879D5A2A8BA0D700B1A298 /* test.c */; };
+		BF879D5F2A8BA12600B1A298 /* libft_malloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BF879D5C2A8BA0F000B1A298 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFAC2CE12A583C3E000FC0EC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BFAC2CE82A583C3E000FC0EC;
+			remoteInfo = ft_malloc;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BF879D512A8BA0A400B1A298 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		BF2310B22A58415200AB9F35 /* malloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = malloc.h; sourceTree = "<group>"; };
@@ -24,6 +48,8 @@
 		BF30D84F2A780D9A001D4EBF /* pageHeader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pageHeader.c; sourceTree = "<group>"; };
 		BF30D8522A78103B001D4EBF /* error.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		BF30D8532A78103B001D4EBF /* error.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		BF879D532A8BA0A400B1A298 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF879D5A2A8BA0D700B1A298 /* test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test.c; sourceTree = "<group>"; };
 		BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libft_malloc.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFB4EA092A583CC5009376F1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BFB4EA0A2A583D20009376F1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -31,6 +57,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BF879D502A8BA0A400B1A298 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF879D5F2A8BA12600B1A298 /* libft_malloc.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BFAC2CE72A583C3E000FC0EC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -63,6 +97,21 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		BF879D542A8BA0A400B1A298 /* test */ = {
+			isa = PBXGroup;
+			children = (
+				BF879D5A2A8BA0D700B1A298 /* test.c */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		BF879D5E2A8BA12600B1A298 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BFAC2CE02A583C3E000FC0EC = {
 			isa = PBXGroup;
 			children = (
@@ -71,7 +120,9 @@
 				BFB4EA0C2A583E73009376F1 /* Makefile */,
 				BFB4EA0A2A583D20009376F1 /* README.md */,
 				BFB4EA092A583CC5009376F1 /* .gitignore */,
+				BF879D542A8BA0A400B1A298 /* test */,
 				BFAC2CEA2A583C3E000FC0EC /* Products */,
+				BF879D5E2A8BA12600B1A298 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */,
+				BF879D532A8BA0A400B1A298 /* test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,6 +150,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		BF879D522A8BA0A400B1A298 /* test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF879D592A8BA0A400B1A298 /* Build configuration list for PBXNativeTarget "test" */;
+			buildPhases = (
+				BF879D4F2A8BA0A400B1A298 /* Sources */,
+				BF879D502A8BA0A400B1A298 /* Frameworks */,
+				BF879D512A8BA0A400B1A298 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF879D5D2A8BA0F000B1A298 /* PBXTargetDependency */,
+			);
+			name = test;
+			productName = test;
+			productReference = BF879D532A8BA0A400B1A298 /* test */;
+			productType = "com.apple.product-type.tool";
+		};
 		BFAC2CE82A583C3E000FC0EC /* ft_malloc */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFAC2CED2A583C3E000FC0EC /* Build configuration list for PBXNativeTarget "ft_malloc" */;
@@ -124,6 +194,9 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					BF879D522A8BA0A400B1A298 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
 					BFAC2CE82A583C3E000FC0EC = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -143,11 +216,20 @@
 			projectRoot = "";
 			targets = (
 				BFAC2CE82A583C3E000FC0EC /* ft_malloc */,
+				BF879D522A8BA0A400B1A298 /* test */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BF879D4F2A8BA0A400B1A298 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF879D5B2A8BA0D700B1A298 /* test.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BFAC2CE62A583C3E000FC0EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -161,7 +243,31 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BF879D5D2A8BA0F000B1A298 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BFAC2CE82A583C3E000FC0EC /* ft_malloc */;
+			targetProxy = BF879D5C2A8BA0F000B1A298 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		BF879D572A8BA0A400B1A298 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BF879D582A8BA0A400B1A298 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		BFAC2CEB2A583C3E000FC0EC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -298,6 +404,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BF879D592A8BA0A400B1A298 /* Build configuration list for PBXNativeTarget "test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF879D572A8BA0A400B1A298 /* Debug */,
+				BF879D582A8BA0A400B1A298 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BFAC2CE42A583C3E000FC0EC /* Build configuration list for PBXProject "ft_malloc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
