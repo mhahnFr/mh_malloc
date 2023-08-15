@@ -63,10 +63,11 @@ void * realloc(void * ptr, size_t newSize) {
 void free(void * ptr) {
     struct pageHeader * page = findPageFor(ptr, pages.bigs);
     if (page != NULL) {
-        if (!page_deallocate(page)) {
+        if (!page_deallocate(page, &pages.bigs)) {
             error("Pointer being freed was not allocated!");
         }
         return;
     }
     // TODO: Search in the managed pages
+    error("Pointer begin freed cannot be freed!");
 }

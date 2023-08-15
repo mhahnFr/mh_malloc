@@ -20,7 +20,16 @@ struct pageHeader * allocatePage(void) {
     return toReturn;
 }
 
-bool page_deallocate(struct pageHeader * self) {
-    // TODO: unlink page
+bool page_deallocate(struct pageHeader * self, struct pageHeader ** list) {    
+    if (self->previous != NULL) {
+        self->previous->next = self->next;
+    }
+    if (self->next != NULL) {
+        self->next->previous = self->previous;
+    }
+    if (*list == self) {
+        *list = self->next;
+    }
+    
     return munmap(self, self->size) == 0;
 }

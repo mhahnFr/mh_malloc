@@ -15,6 +15,6 @@ struct pageHeader {
 
 struct pageHeader * allocatePage(void);
 
-bool page_deallocate(struct pageHeader * self);
+bool page_deallocate(struct pageHeader * self, struct pageHeader ** list);
 
 #endif /* pageHeader_h */
