@@ -67,6 +67,7 @@
 		BFD752FA2A8E7A06008F1AD3 /* zone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zone.h; sourceTree = "<group>"; };
 		BFD752FB2A8E7A06008F1AD3 /* zone.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zone.c; sourceTree = "<group>"; };
 		BFD752FE2A8E82AA008F1AD3 /* zones.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zones.h; sourceTree = "<group>"; };
+		BFD752FF2A8E8B88008F1AD3 /* zone_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zone_internal.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +168,7 @@
 				BFD752FA2A8E7A06008F1AD3 /* zone.h */,
 				BFD752FB2A8E7A06008F1AD3 /* zone.c */,
 				BFD752FE2A8E82AA008F1AD3 /* zones.h */,
+				BFD752FF2A8E8B88008F1AD3 /* zone_internal.h */,
 			);
 			path = zone;
 			sourceTree = "<group>";
