@@ -1,30 +1,6 @@
 #include <errno.h>
 
-#include "malloc_internal.h"
-
-static void maybeInitPages(struct pageHeader ** headerPtr) {
-    if (*headerPtr != NULL) {
-        return;
-    }
-    
-    *headerPtr = allocatePage();
-    
-    if (*headerPtr == NULL) {
-        errno = ENOMEM;
-    }
-}
-
-void * allocateSmallChunk(struct pageHeader ** begin) {
-    maybeInitPages(begin);
-    
-    return NULL;
-}
-
-void * allocateMediumChunk(struct pageHeader ** begin, size_t size) {
-    maybeInitPages(begin);
-    
-    return NULL;
-}
+#include "pageHeader.h"
 
 void * allocateBigChunk(struct pageHeader ** begin, size_t size) {
     struct pageHeader * page = allocatePage();
