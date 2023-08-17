@@ -17,6 +17,8 @@
 		BF879D5F2A8BA12600B1A298 /* libft_malloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */; };
 		BF879D622A8BA54500B1A298 /* warn.h in Headers */ = {isa = PBXBuildFile; fileRef = BF879D602A8BA54400B1A298 /* warn.h */; };
 		BF879D632A8BA54500B1A298 /* warn.c in Sources */ = {isa = PBXBuildFile; fileRef = BF879D612A8BA54500B1A298 /* warn.c */; };
+		BFD752F72A8E7929008F1AD3 /* chunk.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD752F52A8E7929008F1AD3 /* chunk.h */; };
+		BFD752F82A8E7929008F1AD3 /* chunk.c in Sources */ = {isa = PBXBuildFile; fileRef = BFD752F62A8E7929008F1AD3 /* chunk.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		BFB4EA092A583CC5009376F1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BFB4EA0A2A583D20009376F1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BFB4EA0C2A583E73009376F1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		BFD752F52A8E7929008F1AD3 /* chunk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chunk.h; sourceTree = "<group>"; };
+		BFD752F62A8E7929008F1AD3 /* chunk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = chunk.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 		BF2310B02A58412F00AB9F35 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				BFD752F42A8E7911008F1AD3 /* chunk */,
 				BF2310B32A5843EF00AB9F35 /* malloc.c */,
 				BF30D84B2A7802BB001D4EBF /* malloc_internal.h */,
 				BF30D84C2A7809C1001D4EBF /* malloc_internal.c */,
@@ -141,6 +146,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		BFD752F42A8E7911008F1AD3 /* chunk */ = {
+			isa = PBXGroup;
+			children = (
+				BFD752F52A8E7929008F1AD3 /* chunk.h */,
+				BFD752F62A8E7929008F1AD3 /* chunk.c */,
+			);
+			path = chunk;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -150,6 +164,7 @@
 			files = (
 				BF30D8502A780D9A001D4EBF /* pageHeader.h in Headers */,
 				BF879D622A8BA54500B1A298 /* warn.h in Headers */,
+				BFD752F72A8E7929008F1AD3 /* chunk.h in Headers */,
 				BF30D8542A78103B001D4EBF /* error.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,6 +259,7 @@
 				BF879D632A8BA54500B1A298 /* warn.c in Sources */,
 				BF30D84D2A7809C1001D4EBF /* malloc_internal.c in Sources */,
 				BF2310B42A5843EF00AB9F35 /* malloc.c in Sources */,
+				BFD752F82A8E7929008F1AD3 /* chunk.c in Sources */,
 				BF30D8512A780D9A001D4EBF /* pageHeader.c in Sources */,
 				BF30D8552A78103B001D4EBF /* error.c in Sources */,
 			);
