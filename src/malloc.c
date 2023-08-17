@@ -9,6 +9,18 @@
 #include "malloc_internal.h"
 #include "warn.h"
 
+#include "zone/zone.h"
+
+static struct {
+    struct zone small;
+    struct zone mid;
+    struct zone large;
+} zones = {
+    { NULL, NULL },
+    { NULL, NULL },
+    { NULL, NULL }
+};
+
 static struct {
     struct pageHeader * smalls;
     struct pageHeader * mids;
