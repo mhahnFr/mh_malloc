@@ -19,6 +19,8 @@
 		BF879D632A8BA54500B1A298 /* warn.c in Sources */ = {isa = PBXBuildFile; fileRef = BF879D612A8BA54500B1A298 /* warn.c */; };
 		BFD752F72A8E7929008F1AD3 /* chunk.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD752F52A8E7929008F1AD3 /* chunk.h */; };
 		BFD752F82A8E7929008F1AD3 /* chunk.c in Sources */ = {isa = PBXBuildFile; fileRef = BFD752F62A8E7929008F1AD3 /* chunk.c */; };
+		BFD752FC2A8E7A06008F1AD3 /* zone.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD752FA2A8E7A06008F1AD3 /* zone.h */; };
+		BFD752FD2A8E7A06008F1AD3 /* zone.c in Sources */ = {isa = PBXBuildFile; fileRef = BFD752FB2A8E7A06008F1AD3 /* zone.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		BFB4EA0C2A583E73009376F1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		BFD752F52A8E7929008F1AD3 /* chunk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chunk.h; sourceTree = "<group>"; };
 		BFD752F62A8E7929008F1AD3 /* chunk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = chunk.c; sourceTree = "<group>"; };
+		BFD752FA2A8E7A06008F1AD3 /* zone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zone.h; sourceTree = "<group>"; };
+		BFD752FB2A8E7A06008F1AD3 /* zone.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zone.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,7 @@
 		BF2310B02A58412F00AB9F35 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				BFD752F92A8E79F2008F1AD3 /* zone */,
 				BFD752F42A8E7911008F1AD3 /* chunk */,
 				BF2310B32A5843EF00AB9F35 /* malloc.c */,
 				BF30D84B2A7802BB001D4EBF /* malloc_internal.h */,
@@ -155,6 +160,15 @@
 			path = chunk;
 			sourceTree = "<group>";
 		};
+		BFD752F92A8E79F2008F1AD3 /* zone */ = {
+			isa = PBXGroup;
+			children = (
+				BFD752FA2A8E7A06008F1AD3 /* zone.h */,
+				BFD752FB2A8E7A06008F1AD3 /* zone.c */,
+			);
+			path = zone;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -162,6 +176,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFD752FC2A8E7A06008F1AD3 /* zone.h in Headers */,
 				BF30D8502A780D9A001D4EBF /* pageHeader.h in Headers */,
 				BF879D622A8BA54500B1A298 /* warn.h in Headers */,
 				BFD752F72A8E7929008F1AD3 /* chunk.h in Headers */,
@@ -258,6 +273,7 @@
 			files = (
 				BF879D632A8BA54500B1A298 /* warn.c in Sources */,
 				BF30D84D2A7809C1001D4EBF /* malloc_internal.c in Sources */,
+				BFD752FD2A8E7A06008F1AD3 /* zone.c in Sources */,
 				BF2310B42A5843EF00AB9F35 /* malloc.c in Sources */,
 				BFD752F82A8E7929008F1AD3 /* chunk.c in Sources */,
 				BF30D8512A780D9A001D4EBF /* pageHeader.c in Sources */,
