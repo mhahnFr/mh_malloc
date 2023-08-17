@@ -6,13 +6,13 @@
 #include <unistd.h>
 
 #define PAGE_FACTOR 8
-#define PAGE_SIZE (getpagesize() * PAGE_FACTOR)
+#define PAGE_SIZE (getpagesize() * (PAGE_FACTOR))
 
 struct pageHeader {
-    size_t size;
-    
     struct pageHeader * previous;
     struct pageHeader * next;
+    
+    size_t size;
 };
 
 struct pageHeader * page_allocateMin(size_t minimum);
