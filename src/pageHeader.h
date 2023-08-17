@@ -21,6 +21,16 @@ static inline struct pageHeader * page_allocate(void) {
     return page_allocateMin(PAGE_SIZE);
 }
 
+static inline void page_add(struct pageHeader ** head, struct pageHeader * element) {
+    element->previous = NULL;
+    element->next     = *head;
+    
+    if (*head != NULL) {
+        (*head)->previous = element;
+    }
+    *head = element;
+}
+
 bool page_deallocate(struct pageHeader * self, struct pageHeader ** list);
 
 #endif /* pageHeader_h */

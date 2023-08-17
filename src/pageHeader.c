@@ -5,11 +5,12 @@
 #include "warn.h"
 
 struct pageHeader * page_allocateMin(size_t minimum) {
-    const int pageSize = getpagesize();
+    const int    pageSize = getpagesize();
+    const size_t size     = minimum % pageSize == 0 ? minimum
+                                                    : (minimum / pageSize + 1) * pageSize;
     
     struct pageHeader * toReturn = mmap(NULL,
-                          /*    len: */ minimum % pageSize == 0 ? minimum
-                                                                : (minimum / pageSize + 1) * pageSize,
+                          /*    len: */ size,
                           /*   prot: */ PROT_READ | PROT_WRITE,
                           /*  flags: */  MAP_ANON | MAP_SHARED,
                           /*     fd: */ -1,
@@ -17,6 +18,8 @@ struct pageHeader * page_allocateMin(size_t minimum) {
     
     if (toReturn == NULL) {
         malloc_warn("Unable to allocate page!");
+    } else {
+        toReturn->size = size;
     }
     return toReturn;
 }
