@@ -16,9 +16,9 @@ static struct {
     struct zone mid;
     struct zone large;
 } zones = {
-    { NULL, NULL },
-    { NULL, NULL },
-    { NULL, NULL }
+    { ZONE_SMALL,  NULL, NULL },
+    { ZONE_MEDIUM, NULL, NULL },
+    { ZONE_LARGE,  NULL, NULL }
 };
 
 static struct {
