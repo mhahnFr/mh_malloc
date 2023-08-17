@@ -2,6 +2,7 @@
 #define pageHeader_h
 
 #include <stdbool.h>
+#include <stddef.h>
 
 #define PAGE_FACTOR 8
 #define PAGE_SIZE (getpagesize() * PAGE_FACTOR)

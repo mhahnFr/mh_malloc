@@ -10,4 +10,8 @@ struct chunk {
     struct chunk * next;
 };
 
+static inline struct chunk * chunk_fromPointer(void * pointer) {
+    return pointer - sizeof(size_t);
+}
+
 #endif /* chunk_h */
