@@ -4,7 +4,7 @@ SRCS = $(shell find . -name \*.c \! -path $(TEST_DIR)\*)
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 DEPS = $(patsubst %.c, %.d, $(SRCS))
 
-CFLAGS = -Wall -Wextra -fPIC -g
+CFLAGS = -std=c11 -Wall -Wextra -fPIC -g
 LDFLAGS = -shared -fPIC
 
 NAME = libmalloc.so
