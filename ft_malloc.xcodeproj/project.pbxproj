@@ -21,6 +21,7 @@
 		BFD752F82A8E7929008F1AD3 /* chunk.c in Sources */ = {isa = PBXBuildFile; fileRef = BFD752F62A8E7929008F1AD3 /* chunk.c */; };
 		BFD752FC2A8E7A06008F1AD3 /* zone.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD752FA2A8E7A06008F1AD3 /* zone.h */; };
 		BFD752FD2A8E7A06008F1AD3 /* zone.c in Sources */ = {isa = PBXBuildFile; fileRef = BFD752FB2A8E7A06008F1AD3 /* zone.c */; };
+		BFD753012A8E8E41008F1AD3 /* zone_internal.c in Sources */ = {isa = PBXBuildFile; fileRef = BFD753002A8E8E41008F1AD3 /* zone_internal.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		BFD752FB2A8E7A06008F1AD3 /* zone.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zone.c; sourceTree = "<group>"; };
 		BFD752FE2A8E82AA008F1AD3 /* zones.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zones.h; sourceTree = "<group>"; };
 		BFD752FF2A8E8B88008F1AD3 /* zone_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zone_internal.h; sourceTree = "<group>"; };
+		BFD753002A8E8E41008F1AD3 /* zone_internal.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zone_internal.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 				BFD752FB2A8E7A06008F1AD3 /* zone.c */,
 				BFD752FE2A8E82AA008F1AD3 /* zones.h */,
 				BFD752FF2A8E8B88008F1AD3 /* zone_internal.h */,
+				BFD753002A8E8E41008F1AD3 /* zone_internal.c */,
 			);
 			path = zone;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFD753012A8E8E41008F1AD3 /* zone_internal.c in Sources */,
 				BF879D632A8BA54500B1A298 /* warn.c in Sources */,
 				BF30D84D2A7809C1001D4EBF /* malloc_internal.c in Sources */,
 				BFD752FD2A8E7A06008F1AD3 /* zone.c in Sources */,
