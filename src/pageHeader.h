@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <unistd.h>
 
 #define PAGE_FACTOR 8
 #define PAGE_SIZE (getpagesize() * PAGE_FACTOR)
@@ -14,7 +15,11 @@ struct pageHeader {
     struct pageHeader * next;
 };
 
-struct pageHeader * allocatePage(void);
+struct pageHeader * page_allocateMin(size_t minimum);
+
+static inline struct pageHeader * page_allocate(void) {
+    return page_allocateMin(PAGE_SIZE);
+}
 
 bool page_deallocate(struct pageHeader * self, struct pageHeader ** list);
 

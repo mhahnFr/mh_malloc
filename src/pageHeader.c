@@ -1,16 +1,17 @@
-#include <stddef.h>
 #include <sys/mman.h>
-#include <unistd.h>
 
 #include "pageHeader.h"
 
 #include "warn.h"
 
-struct pageHeader * allocatePage(void) {
+struct pageHeader * page_allocateMin(size_t minimum) {
+    const int pageSize = getpagesize();
+    
     struct pageHeader * toReturn = mmap(NULL,
-                          /*    len: */ PAGE_SIZE,
+                          /*    len: */ minimum % pageSize == 0 ? minimum
+                                                                : (minimum / pageSize + 1) * pageSize,
                           /*   prot: */ PROT_READ | PROT_WRITE,
-                          /*  flags: */ MAP_ANON | MAP_SHARED,
+                          /*  flags: */  MAP_ANON | MAP_SHARED,
                           /*     fd: */ -1,
                           /* offset: */ getpagesize());
     

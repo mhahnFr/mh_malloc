@@ -3,7 +3,7 @@
 #include "pageHeader.h"
 
 void * allocateBigChunk(struct pageHeader ** begin, size_t size) {
-    struct pageHeader * page = allocatePage();
+    struct pageHeader * page = page_allocate();
     
     if (page == NULL) {
         errno = ENOMEM;
