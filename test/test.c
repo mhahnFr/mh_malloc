@@ -11,6 +11,8 @@ int main(void) {
         printf(" %c ", str[i]);
     }
     printf("\n");
+    printf("Page size: %zu\n", *(((size_t *) str) - 2));
+    printf("Allocation size: %zu\n", *(((size_t *) str) - 1));
     free(str);
     free(str);
 

@@ -17,7 +17,7 @@ static inline struct chunk * chunk_fromPointer(void * pointer) {
 }
 
 static inline void * chunk_toPointer(struct chunk * self) {
-    return self + sizeof(chunk_sizeType);
+    return ((void *) self) + sizeof(chunk_sizeType);
 }
 
 #endif /* chunk_h */
