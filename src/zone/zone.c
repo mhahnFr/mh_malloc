@@ -2,12 +2,19 @@
 #include "zone_internal.h"
 
 void * zone_allocate(struct zone * self, size_t size) {
+    struct chunk * allocated;
+    
     switch (self->type) {
-        case ZONE_SMALL:  return zone_allocateSmall(self);
-        case ZONE_MEDIUM: return zone_allocateMedium(self, size);
+        case ZONE_SMALL:  allocated = zone_allocateSmall(self);        break;
+        case ZONE_MEDIUM: allocated = zone_allocateMedium(self, size); break;
+        case ZONE_LARGE:  allocated = zone_allocateLarge(self, size);  break;
             
-        default: return zone_allocateLarge(self, size);
+        default:
+            allocated = NULL;
+            break;
     }
+    
+    return allocated == NULL ? NULL : chunk_toPointer(allocated);
 }
 
 bool zone_deallocate(struct zone * self, struct chunk * chunk) {
