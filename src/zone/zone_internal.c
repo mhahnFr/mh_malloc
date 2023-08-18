@@ -2,6 +2,18 @@
 
 #include "zone_internal.h"
 
+struct chunk * zone_allocateSmall(struct zone * self) {
+    // TODO: Implement
+    errno = ENOMEM;
+    return NULL;
+}
+
+struct chunk * zone_allocateMedium(struct zone * self, size_t size) {
+    // TODO: Implement
+    errno = ENOMEM;
+    return NULL;
+}
+
 struct chunk * zone_allocateLarge(struct zone * self, size_t size) {
     struct pageHeader * page = page_allocateMin(size);
     
@@ -12,6 +24,16 @@ struct chunk * zone_allocateLarge(struct zone * self, size_t size) {
     page_add(&self->pages, page);
     
     return (void *) page + sizeof(struct pageHeader);
+}
+
+bool zone_deallocateSmall(struct zone * self, struct chunk * chunk) {
+    // TODO: Implement
+    return false;
+}
+
+bool zone_deallocateMedium(struct zone * self, struct chunk * chunk) {
+    // TODO: Implement
+    return false;
 }
 
 bool zone_deallocateLarge(struct zone * self, struct chunk * chunk) {
