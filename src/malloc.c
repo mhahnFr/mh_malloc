@@ -29,6 +29,11 @@ void * calloc(size_t count, size_t size) {
     struct zone * allocZone = zones_getZoneBySize(&zones, totalSize);
            void * chunk     = zone_allocate(allocZone, totalSize);
     
+    if (chunk == NULL) {
+        errno = ENOMEM;
+        return NULL;
+    }
+    
     if (allocZone != &zones.large) {
         bzero(chunk, totalSize);
     }
@@ -44,6 +49,10 @@ void * realloc(void * ptr, size_t newSize) {
 }
 
 void free(void * ptr) {
+    if (ptr == NULL) {
+        return;
+    }
+    
     struct chunk * chunk = chunk_fromPointer(ptr);
     
     zone_deallocate(zones_getZoneBySize(&zones, chunk->size), chunk);
