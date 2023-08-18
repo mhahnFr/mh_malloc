@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include <sys/mman.h>
 
 #include "pageHeader.h"
@@ -22,6 +23,10 @@ struct pageHeader * page_allocateMin(size_t minimum) {
         toReturn->size = size;
     }
     return toReturn;
+}
+
+struct pageHeader * page_allocate(void) {
+    return page_allocateMin(PAGE_SIZE);
 }
 
 void page_deallocate(struct pageHeader * self) {
