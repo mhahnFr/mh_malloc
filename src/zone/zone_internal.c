@@ -23,7 +23,10 @@ struct chunk * zone_allocateLarge(struct zone * self, size_t size) {
     }
     page_add(&self->pages, page);
     
-    return (void *) page + sizeof(struct pageHeader);
+    struct chunk * chunk = (void *) page + sizeof(struct pageHeader);
+    chunk->size = size;
+    
+    return chunk;
 }
 
 bool zone_deallocateSmall(struct zone * self, struct chunk * chunk) {
