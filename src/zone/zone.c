@@ -9,3 +9,12 @@ void * zone_allocate(struct zone * self, size_t size) {
         default: return zone_allocateLarge(self, size);
     }
 }
+
+bool zone_deallocate(struct zone * self, struct chunk * chunk) {
+    switch (self->type) {
+        case ZONE_SMALL:  return zone_deallocateSmall(self, chunk);
+        case ZONE_MEDIUM: return zone_deallocateMedium(self, chunk);
+            
+        default: return zone_deallocateLarge(self, chunk);
+    }
+}
