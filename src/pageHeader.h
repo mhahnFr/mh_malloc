@@ -31,6 +31,18 @@ static inline void page_add(struct pageHeader ** head, struct pageHeader * eleme
     *head = element;
 }
 
-bool page_deallocate(struct pageHeader * self, struct pageHeader ** list);
+static inline void page_remove(struct pageHeader ** list, struct pageHeader * self) {
+    if (self->previous != NULL) {
+        self->previous->next = self->next;
+    }
+    if (self->next != NULL) {
+        self->next->previous = self->previous;
+    }
+    if (*list == self) {
+        *list = self->next;
+    }
+}
+
+void page_deallocate(struct pageHeader * self);
 
 #endif /* pageHeader_h */

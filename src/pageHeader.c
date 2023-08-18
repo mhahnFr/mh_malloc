@@ -24,16 +24,8 @@ struct pageHeader * page_allocateMin(size_t minimum) {
     return toReturn;
 }
 
-bool page_deallocate(struct pageHeader * self, struct pageHeader ** list) {    
-    if (self->previous != NULL) {
-        self->previous->next = self->next;
+void page_deallocate(struct pageHeader * self) {
+    if (munmap(self, self->size) != 0) {
+        malloc_warn("Error while unmapping page!");
     }
-    if (self->next != NULL) {
-        self->next->previous = self->previous;
-    }
-    if (*list == self) {
-        *list = self->next;
-    }
-    
-    return munmap(self, self->size) == 0;
 }
