@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BF2310B42A5843EF00AB9F35 /* malloc.c in Sources */ = {isa = PBXBuildFile; fileRef = BF2310B32A5843EF00AB9F35 /* malloc.c */; };
-		BF30D84D2A7809C1001D4EBF /* malloc_internal.c in Sources */ = {isa = PBXBuildFile; fileRef = BF30D84C2A7809C1001D4EBF /* malloc_internal.c */; };
 		BF30D8502A780D9A001D4EBF /* pageHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = BF30D84E2A780D9A001D4EBF /* pageHeader.h */; };
 		BF30D8512A780D9A001D4EBF /* pageHeader.c in Sources */ = {isa = PBXBuildFile; fileRef = BF30D84F2A780D9A001D4EBF /* pageHeader.c */; };
 		BF30D8542A78103B001D4EBF /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = BF30D8522A78103B001D4EBF /* error.h */; };
@@ -50,7 +49,6 @@
 		BF2310B22A58415200AB9F35 /* malloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = malloc.h; sourceTree = "<group>"; };
 		BF2310B32A5843EF00AB9F35 /* malloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = malloc.c; sourceTree = "<group>"; };
 		BF30D84B2A7802BB001D4EBF /* malloc_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = malloc_internal.h; sourceTree = "<group>"; };
-		BF30D84C2A7809C1001D4EBF /* malloc_internal.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = malloc_internal.c; sourceTree = "<group>"; };
 		BF30D84E2A780D9A001D4EBF /* pageHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pageHeader.h; sourceTree = "<group>"; };
 		BF30D84F2A780D9A001D4EBF /* pageHeader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pageHeader.c; sourceTree = "<group>"; };
 		BF30D8522A78103B001D4EBF /* error.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 				BFD752F42A8E7911008F1AD3 /* chunk */,
 				BF2310B32A5843EF00AB9F35 /* malloc.c */,
 				BF30D84B2A7802BB001D4EBF /* malloc_internal.h */,
-				BF30D84C2A7809C1001D4EBF /* malloc_internal.c */,
 				BF30D84E2A780D9A001D4EBF /* pageHeader.h */,
 				BF30D84F2A780D9A001D4EBF /* pageHeader.c */,
 				BF30D8522A78103B001D4EBF /* error.h */,
@@ -280,7 +277,6 @@
 			files = (
 				BFD753012A8E8E41008F1AD3 /* zone_internal.c in Sources */,
 				BF879D632A8BA54500B1A298 /* warn.c in Sources */,
-				BF30D84D2A7809C1001D4EBF /* malloc_internal.c in Sources */,
 				BFD752FD2A8E7A06008F1AD3 /* zone.c in Sources */,
 				BF2310B42A5843EF00AB9F35 /* malloc.c in Sources */,
 				BFD752F82A8E7929008F1AD3 /* chunk.c in Sources */,

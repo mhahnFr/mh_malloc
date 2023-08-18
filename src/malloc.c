@@ -42,6 +42,8 @@ void * calloc(size_t count, size_t size) {
 
 #include <stdlib.h>
 void * realloc(void * ptr, size_t newSize) {
+    // TODO: Implement!
+    
     (void) ptr;
     (void) newSize;
     
