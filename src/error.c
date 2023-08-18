@@ -4,7 +4,7 @@
 
 #include "error.h"
 
-void error(char * message) {
+void malloc_error(const char * message) {
     write(2, message, strlen(message));
     write(2, "\n", 1);
     abort();

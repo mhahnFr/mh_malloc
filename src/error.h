@@ -1,6 +1,6 @@
 #ifndef error_h
 #define error_h
 
-void error(char * message);
+void malloc_error(const char * message);
 
 #endif /* error_h */
