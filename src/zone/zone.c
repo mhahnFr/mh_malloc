@@ -21,7 +21,8 @@ bool zone_deallocate(struct zone * self, struct chunk * chunk) {
     switch (self->type) {
         case ZONE_SMALL:  return zone_deallocateSmall(self, chunk);
         case ZONE_MEDIUM: return zone_deallocateMedium(self, chunk);
+        case ZONE_LARGE:  return zone_deallocateLarge(self, chunk);
             
-        default: return zone_deallocateLarge(self, chunk);
+        default: return false;
     }
 }
