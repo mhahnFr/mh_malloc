@@ -24,4 +24,6 @@ struct zone {
 void * zone_allocate(struct zone * self, size_t bytes);
 bool   zone_deallocate(struct zone * self, struct chunk * chunk);
 
+bool zone_hasPointer(struct zone * self, void * pointer);
+
 #endif /* zone_h */
