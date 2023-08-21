@@ -48,7 +48,6 @@
 /* Begin PBXFileReference section */
 		BF2310B22A58415200AB9F35 /* malloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = malloc.h; sourceTree = "<group>"; };
 		BF2310B32A5843EF00AB9F35 /* malloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = malloc.c; sourceTree = "<group>"; };
-		BF30D84B2A7802BB001D4EBF /* malloc_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = malloc_internal.h; sourceTree = "<group>"; };
 		BF30D84E2A780D9A001D4EBF /* pageHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pageHeader.h; sourceTree = "<group>"; };
 		BF30D84F2A780D9A001D4EBF /* pageHeader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pageHeader.c; sourceTree = "<group>"; };
 		BF30D8522A78103B001D4EBF /* error.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
@@ -95,7 +94,6 @@
 				BFD752F92A8E79F2008F1AD3 /* zone */,
 				BFD752F42A8E7911008F1AD3 /* chunk */,
 				BF2310B32A5843EF00AB9F35 /* malloc.c */,
-				BF30D84B2A7802BB001D4EBF /* malloc_internal.h */,
 				BF30D84E2A780D9A001D4EBF /* pageHeader.h */,
 				BF30D84F2A780D9A001D4EBF /* pageHeader.c */,
 				BF30D8522A78103B001D4EBF /* error.h */,

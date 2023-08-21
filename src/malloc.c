@@ -3,7 +3,6 @@
 #include <string.h>
 
 #include "error.h"
-#include "malloc_internal.h"
 #include "warn.h"
 
 #include "zone/zones.h"
