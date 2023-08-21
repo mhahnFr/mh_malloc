@@ -25,8 +25,8 @@ struct pageHeader * page_allocateMin(size_t minimum) {
     return toReturn;
 }
 
-struct pageHeader * page_allocate(void) {
-    return page_allocateMin(PAGE_SIZE);
+int page_getPageSize(void) {
+    return getpagesize();
 }
 
 void page_deallocate(struct pageHeader * self) {
