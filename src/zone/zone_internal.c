@@ -71,6 +71,10 @@ struct chunk * zone_allocateLarge(struct zone * self, size_t size) {
 }
 
 bool zone_deallocateSmall(struct zone * self, struct chunk * chunk, struct pageHeader * hint) {
+    if (chunk->size == 0) {
+        return false;
+    }
+    
     chunk->next = self->freeChunks;
     chunk->previous = NULL;
     if (self->freeChunks != NULL) {
