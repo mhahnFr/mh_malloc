@@ -90,15 +90,12 @@ bool zone_deallocateMedium(struct zone * self, struct chunk * chunk, struct page
 }
 
 bool zone_deallocateLarge(struct zone * self, struct chunk * chunk, struct pageHeader * hint) {
-    struct pageHeader * page;
-    for (page = self->pages; page != NULL && (void *) page + sizeof(struct pageHeader) != chunk; page = page->next);
-    
-    if (page == NULL) {
+    if ((void *) hint + sizeof(struct pageHeader) != chunk) {
         return false;
     }
     
-    page_remove(&self->pages, page);
-    page_deallocate(page);
+    page_remove(&self->pages, hint);
+    page_deallocate(hint);
     
     return true;
 }
