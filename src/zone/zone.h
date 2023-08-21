@@ -24,11 +24,11 @@ struct zone {
 void * zone_allocate(struct zone * self, size_t bytes);
 bool   zone_deallocate(struct zone * self, struct chunk * chunk);
 
-static inline bool zone_hasPointer(struct zone * self, void * pointer) {
+static inline struct pageHeader * zone_hasPointer(struct zone * self, void * pointer) {
     struct pageHeader * page;
     for (page = self->pages; page != NULL && !page_hasPointer(page, pointer); page = page->next);
     
-    return page != NULL;
+    return page;
 }
 
 #endif /* zone_h */

@@ -21,13 +21,24 @@ static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size
     return &self->large;
 }
 
-static inline struct zone * zones_getZoneByPointer(struct zones * self, void * pointer) {
-    if (zone_hasPointer(&self->small, pointer)) {
-        return &self->small;
-    } else if (zone_hasPointer(&self->medium, pointer)) {
-        return &self->medium;
+static inline struct zone * zones_getZoneByPointer(struct zones *       self,
+                                                          void *        pointer,
+                                                   struct pageHeader ** page) {
+    struct pageHeader * tmpPage;
+    struct zone *       toReturn;
+    
+    if ((tmpPage = zone_hasPointer(&self->small, pointer)) != NULL) {
+        toReturn = &self->small;
+    } else if ((tmpPage = zone_hasPointer(&self->medium, pointer)) != NULL) {
+        toReturn = &self->medium;
+    } else {
+        toReturn = (tmpPage = zone_hasPointer(&self->large, pointer)) == NULL ? NULL : &self->large;
     }
-    return zone_hasPointer(&self->large, pointer) ? &self->large : NULL;
+    
+    if (page != NULL) {
+        *page = tmpPage;
+    }
+    return toReturn;
 }
 
 #endif /* zones_h */

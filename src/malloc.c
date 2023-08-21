@@ -54,7 +54,7 @@ void free(void * ptr) {
         return;
     }
     
-    struct zone * zone = zones_getZoneByPointer(&zones, ptr);
+    struct zone * zone = zones_getZoneByPointer(&zones, ptr, NULL);
     if (zone == NULL || !zone_deallocate(zone, chunk_fromPointer(ptr))) {
         malloc_error("Pointer being freed was not allocated!");
     }
