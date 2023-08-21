@@ -2,6 +2,17 @@
 
 #include "zone_internal.h"
 
+static inline bool zone_smallIsPageEmpty(struct pageHeader * page) {
+    // TODO: Implement
+    return false;
+}
+
+static inline void zone_smallRemovePage(struct zone * self, struct pageHeader * page) {
+    // TODO: Remove chunks from free list
+    page_remove(&self->pages, page);
+    page_deallocate(page);
+}
+
 static inline struct chunk * zone_smallFindInPage(struct zone * self) {
     if (self->pages == NULL) {
         return NULL;
@@ -74,6 +85,7 @@ bool zone_deallocateSmall(struct zone * self, struct chunk * chunk, struct pageH
     if (chunk->size == 0) {
         return false;
     }
+    // FIXME: Extensive double free checks!
     
     chunk->next = self->freeChunks;
     chunk->previous = NULL;
@@ -83,7 +95,9 @@ bool zone_deallocateSmall(struct zone * self, struct chunk * chunk, struct pageH
     self->freeChunks = chunk;
     chunk->size = 0;
     
-    // TODO: When to unmap pages?
+    if (zone_smallIsPageEmpty(hint)) {
+        zone_smallRemovePage(self, hint);
+    }
     
     return true;
 }
