@@ -17,11 +17,11 @@ void * zone_allocate(struct zone * self, size_t size) {
     return allocated == NULL ? NULL : chunk_toPointer(allocated);
 }
 
-bool zone_deallocate(struct zone * self, struct chunk * chunk) {
+bool zone_deallocate(struct zone * self, struct chunk * chunk, struct pageHeader * hint) {
     switch (self->type) {
-        case ZONE_SMALL:  return zone_deallocateSmall(self, chunk);
-        case ZONE_MEDIUM: return zone_deallocateMedium(self, chunk);
-        case ZONE_LARGE:  return zone_deallocateLarge(self, chunk);
+        case ZONE_SMALL:  return zone_deallocateSmall(self, chunk, hint);
+        case ZONE_MEDIUM: return zone_deallocateMedium(self, chunk, hint);
+        case ZONE_LARGE:  return zone_deallocateLarge(self, chunk, hint);
             
         default: return false;
     }

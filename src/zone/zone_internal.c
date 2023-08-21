@@ -70,7 +70,7 @@ struct chunk * zone_allocateLarge(struct zone * self, size_t size) {
     return chunk;
 }
 
-bool zone_deallocateSmall(struct zone * self, struct chunk * chunk) {
+bool zone_deallocateSmall(struct zone * self, struct chunk * chunk, struct pageHeader * hint) {
     chunk->next = self->freeChunks;
     chunk->previous = NULL;
     if (self->freeChunks != NULL) {
@@ -84,12 +84,12 @@ bool zone_deallocateSmall(struct zone * self, struct chunk * chunk) {
     return true;
 }
 
-bool zone_deallocateMedium(struct zone * self, struct chunk * chunk) {
+bool zone_deallocateMedium(struct zone * self, struct chunk * chunk, struct pageHeader * hint) {
     // TODO: Implement
     return false;
 }
 
-bool zone_deallocateLarge(struct zone * self, struct chunk * chunk) {
+bool zone_deallocateLarge(struct zone * self, struct chunk * chunk, struct pageHeader * hint) {
     struct pageHeader * page;
     for (page = self->pages; page != NULL && (void *) page + sizeof(struct pageHeader) != chunk; page = page->next);
     
