@@ -33,6 +33,16 @@ struct chunk * zone_allocateMedium(struct zone * self, size_t size) {
 }
 
 bool zone_deallocateMedium(struct zone * self, struct chunk * chunk, struct pageHeader * hint) {
-    // TODO: Implement
-    return false;
+    // TODO: Check if already freed
+    
+    chunk->next = self->freeChunks;
+    chunk->previous = NULL;
+    if (self->freeChunks != NULL) {
+        self->freeChunks->previous = chunk;
+    }
+    self->freeChunks = chunk;
+    
+    // TODO: Mark as free, check hinted page whether it can be deallocated
+    
+    return true;
 }
