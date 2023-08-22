@@ -2,7 +2,7 @@
 
 #include "zone_medium.h"
 
-struct chunk * zone_mediumFindFreeChunk(struct zone * self, size_t size) {
+static inline struct chunk * zone_mediumFindFreeChunk(struct zone * self, size_t size) {
     if (self->freeChunks == NULL) {
         return NULL; // TODO: Search in the most recent page
     }
@@ -25,7 +25,8 @@ struct chunk * zone_allocateMedium(struct zone * self, size_t size) {
             errno = ENOMEM;
             return NULL;
         }
-        chunk = (void *) page + sizeof(struct pageHeader);
+        chunk = (void *) page + sizeof(struct pageHeader) + sizeof(void *);
+        *((void **) ((void *) page + sizeof(struct pageHeader))) = (void *) page + sizeof(struct pageHeader) + sizeof(chunk_sizeType) + chunk->size;
     }
     chunk->size = size;
     return chunk;
