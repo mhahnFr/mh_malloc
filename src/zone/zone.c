@@ -1,5 +1,6 @@
 #include "zone.h"
 #include "zone_internal.h"
+#include "zone_small.h"
 
 void * zone_allocate(struct zone * self, size_t size) {
     struct chunk * allocated;
