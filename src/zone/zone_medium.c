@@ -25,6 +25,8 @@ struct chunk * zone_allocateMedium(struct zone * self, size_t size) {
             errno = ENOMEM;
             return NULL;
         }
+        page_add(&self->pages, page);
+        
         chunk = (void *) page + sizeof(struct pageHeader) + sizeof(void *);
         *((void **) ((void *) page + sizeof(struct pageHeader))) = (void *) page + sizeof(struct pageHeader) + sizeof(chunk_sizeType) + chunk->size;
     }

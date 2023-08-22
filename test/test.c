@@ -14,7 +14,7 @@ int main(void) {
     printf("Page size: %zu\n", *(((size_t *) str) - 2));
     printf("Allocation size: %zu\n", *(((size_t *) str) - 1));
 //    free(str);
-//    free(str);
+    free(str);
     
 //    char * allocs[50000];
 //
