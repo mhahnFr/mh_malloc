@@ -24,7 +24,7 @@ static inline struct chunk * zone_smallFindInPage(struct zone * self) {
     for (; (void *) it + sizeof(struct chunk) < end && it->size != 0; ++it);
 
     return (void *) it + sizeof(struct chunk) < end
-        ? (void *) it + sizeof(char) - sizeof(chunk_sizeType)
+        ? (void *) it
         : NULL;
 }
 
@@ -85,7 +85,6 @@ bool zone_deallocateSmall(struct zone * self, struct chunk * chunk, struct pageH
     if (chunk->size == 0) {
         return false;
     }
-    // FIXME: Extensive double free checks!
     
     chunk->next = self->freeChunks;
     chunk->previous = NULL;
