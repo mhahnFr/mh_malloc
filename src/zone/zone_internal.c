@@ -3,12 +3,32 @@
 #include "zone_internal.h"
 
 static inline bool zone_smallIsPageEmpty(struct pageHeader * page) {
-    // TODO: Implement
-    return false;
+           void *  end = (void *) page + page->size;
+    struct chunk * it  = (void *) page + sizeof(struct pageHeader);
+    
+    for (; (void *) it + sizeof(struct chunk) < end; ++it) {
+        if (it->size == 1) {
+            return false;
+        }
+    }
+    return true;
 }
 
 static inline void zone_smallRemovePage(struct zone * self, struct pageHeader * page) {
-    // TODO: Remove chunks from free list
+    for (struct chunk * it = self->freeChunks; it != NULL; it = it->next) {
+        if (page_hasPointer(page, it)) {
+            if (it->previous != NULL) {
+                it->previous->next = it->next;
+            }
+            if (it->next != NULL) {
+                it->next->previous = it->previous;
+            }
+            if (self->freeChunks == it) {
+                self->freeChunks = it->next;
+            }
+        }
+    }
+    
     page_remove(&self->pages, page);
     page_deallocate(page);
 }
