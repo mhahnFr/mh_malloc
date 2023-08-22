@@ -1,6 +1,6 @@
 #include <errno.h>
 
-#include "zone_internal.h"
+#include "zone_medium.h"
 
 struct chunk * zone_allocateMedium(struct zone * self, size_t size) {
     // TODO: Implement
