@@ -4,9 +4,7 @@
 #include "zone.h"
 
 struct chunk * zone_allocateMedium(struct zone * self, size_t bytes);
-struct chunk * zone_allocateLarge(struct zone * self, size_t bytes);
 
 bool zone_deallocateMedium(struct zone * self, struct chunk * chunk, struct pageHeader * hint);
-bool zone_deallocateLarge(struct zone * self, struct chunk * chunk, struct pageHeader * hint);
 
 #endif /* zone_internal_h */
