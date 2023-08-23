@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#include "../chunk/chunk.h"
 #include "../pageHeader.h"
 
 enum zoneType {
@@ -16,13 +15,13 @@ enum zoneType {
 struct zone {
     enum zoneType type;
     
-    struct chunk * freeChunks;
+    void * freeChunks;
     
     struct pageHeader * pages;
 };
 
 void * zone_allocate(struct zone * self, size_t bytes);
-bool   zone_deallocate(struct zone * self, struct chunk * chunk, struct pageHeader * hint);
+bool   zone_deallocate(struct zone * self, void * pointer, struct pageHeader * hint);
 
 static inline struct pageHeader * zone_hasPointer(struct zone * self, void * pointer) {
     struct pageHeader * page;

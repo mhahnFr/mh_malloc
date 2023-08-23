@@ -4,26 +4,20 @@
 #include "zone_large.h"
 
 void * zone_allocate(struct zone * self, size_t size) {
-    struct chunk * allocated;
-    
     switch (self->type) {
-        case ZONE_SMALL:  allocated = zone_allocateSmall(self);        break;
-        case ZONE_MEDIUM: allocated = zone_allocateMedium(self, size); break;
-        case ZONE_LARGE:  allocated = zone_allocateLarge(self, size);  break;
+        case ZONE_SMALL:  return zone_allocateSmall(self);
+        case ZONE_MEDIUM: return zone_allocateMedium(self, size);
+        case ZONE_LARGE:  return zone_allocateLarge(self, size);
             
-        default:
-            allocated = NULL;
-            break;
+        default: return NULL;
     }
-    
-    return allocated == NULL ? NULL : chunk_toPointer(allocated);
 }
 
-bool zone_deallocate(struct zone * self, struct chunk * chunk, struct pageHeader * hint) {
+bool zone_deallocate(struct zone * self, void * pointer, struct pageHeader * hint) {
     switch (self->type) {
-        case ZONE_SMALL:  return zone_deallocateSmall(self, chunk, hint);
-        case ZONE_MEDIUM: return zone_deallocateMedium(self, chunk, hint);
-        case ZONE_LARGE:  return zone_deallocateLarge(self, chunk, hint);
+        case ZONE_SMALL:  return zone_deallocateSmall(self, pointer, hint);
+        case ZONE_MEDIUM: return zone_deallocateMedium(self, pointer, hint);
+        case ZONE_LARGE:  return zone_deallocateLarge(self, pointer, hint);
             
         default: return false;
     }
