@@ -32,7 +32,16 @@ static inline struct chunk * zone_mediumFindFreeChunk(struct zone * self, size_t
             tmp = it;
         }
     }
-    return tmp; // TODO: If null, check recent page
+    if (tmp == NULL) {
+        return zone_mediumFindInPage(self, size);
+    }
+    
+    self->freeChunks = self->freeChunks->next;
+    if (self->freeChunks != NULL) {
+        self->freeChunks->previous = NULL;
+    }
+    
+    return tmp;
 }
 
 struct chunk * zone_allocateMedium(struct zone * self, size_t size) {
