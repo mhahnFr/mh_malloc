@@ -3,7 +3,7 @@
 
 #include "zone.h"
 
-struct chunk * zone_allocateSmall(struct zone * self);
-bool zone_deallocateSmall(struct zone * self, struct chunk * chunk, struct pageHeader * hint);
+void * zone_allocateSmall(struct zone * self);
+bool zone_deallocateSmall(struct zone * self, void * pointer, struct pageHeader * hint);
 
 #endif /* zone_small_h */
