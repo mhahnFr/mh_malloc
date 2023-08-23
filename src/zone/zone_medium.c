@@ -2,9 +2,28 @@
 
 #include "zone_medium.h"
 
+#include <assert.h>
+static inline struct chunk * zone_mediumFindInPage(struct zone * self, size_t size) {
+    if (self->pages == NULL) {
+        return NULL;
+    }
+    
+    void ** endPointer = ((void *) self->pages) + sizeof(struct pageHeader);
+    size_t available = ((void *) self->pages + self->pages->size) - *endPointer;
+    if (available < size + sizeof(chunk_sizeType)) {
+        return NULL;
+    }
+    struct chunk * toReturn = *endPointer;
+    *endPointer += sizeof(chunk_sizeType) + size;
+    
+    assert(*endPointer <= (void *) self->pages + self->pages->size);
+    
+    return toReturn;
+}
+
 static inline struct chunk * zone_mediumFindFreeChunk(struct zone * self, size_t size) {
     if (self->freeChunks == NULL) {
-        return NULL; // TODO: Search in the most recent page
+        return zone_mediumFindInPage(self, size);
     }
     
     struct chunk * tmp = NULL;
