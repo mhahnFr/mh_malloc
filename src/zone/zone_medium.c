@@ -29,7 +29,12 @@ static inline struct chunk * zone_mediumFindFreeChunk(struct zone * self, size_t
     struct chunk * tmp = NULL;
     for (struct chunk * it = self->freeChunks; it != NULL; it = it->next) {
         if (it->size >= size && (tmp == NULL || it->size < tmp->size)) {
+            // FIXME: Inefficient!
             tmp = it;
+            if (it->size == size) {
+                // Perfect match
+                break;
+            }
         }
     }
     if (tmp == NULL) {
