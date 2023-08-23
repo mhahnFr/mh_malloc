@@ -2,32 +2,38 @@
 
 #include "zone_medium.h"
 
-#include <assert.h>
-static inline struct chunk * zone_mediumFindInPage(struct zone * self, size_t size) {
+#define ZONE_OVERHEAD (sizeof(size_t) + sizeof(char))
+
+struct zone_medium_chunk {
+    size_t size;
+    char flag;
+    
+    struct zone_medium_chunk * next;
+    struct zone_medium_chunk * previous;
+};
+
+static inline struct zone_medium_chunk * zone_mediumFindInPage(struct zone * self, size_t size) {
     if (self->pages == NULL) {
         return NULL;
     }
     
-    void ** endPointer = ((void *) self->pages) + sizeof(struct pageHeader);
-    size_t available = ((void *) self->pages + self->pages->size) - *endPointer;
-    if (available < size + sizeof(chunk_sizeType)) {
+    size_t * used = (size_t *) ((void *) self->pages) + sizeof(struct pageHeader);
+    if (self->pages->size - sizeof(struct pageHeader) - *used < size + ZONE_OVERHEAD) {
         return NULL;
     }
-    struct chunk * toReturn = *endPointer;
-    *endPointer += sizeof(chunk_sizeType) + size;
-    
-    assert(*endPointer <= (void *) self->pages + self->pages->size);
+    struct zone_medium_chunk * toReturn = (void *) self->pages + sizeof(struct pageHeader) + *used;
+    *used += ZONE_OVERHEAD + size;
     
     return toReturn;
 }
 
-static inline struct chunk * zone_mediumFindFreeChunk(struct zone * self, size_t size) {
+static inline struct zone_medium_chunk * zone_mediumFindFreeChunk(struct zone * self, size_t size) {
     if (self->freeChunks == NULL) {
         return zone_mediumFindInPage(self, size);
     }
     
-    struct chunk * tmp = NULL;
-    for (struct chunk * it = self->freeChunks; it != NULL; it = it->next) {
+    struct zone_medium_chunk * tmp = NULL;
+    for (struct zone_medium_chunk * it = self->freeChunks; it != NULL; it = it->next) {
         if (it->size >= size && (tmp == NULL || it->size < tmp->size)) {
             // FIXME: Inefficient!
             tmp = it;
@@ -41,16 +47,16 @@ static inline struct chunk * zone_mediumFindFreeChunk(struct zone * self, size_t
         return zone_mediumFindInPage(self, size);
     }
     
-    self->freeChunks = self->freeChunks->next;
+    self->freeChunks = ((struct zone_medium_chunk *) self->freeChunks)->next;
     if (self->freeChunks != NULL) {
-        self->freeChunks->previous = NULL;
+        ((struct zone_medium_chunk *) self->freeChunks)->previous = NULL;
     }
     
     return tmp;
 }
 
-struct chunk * zone_allocateMedium(struct zone * self, size_t size) {
-    struct chunk * chunk = zone_mediumFindFreeChunk(self, size);
+void * zone_allocateMedium(struct zone * self, size_t size) {
+    struct zone_medium_chunk * chunk = zone_mediumFindFreeChunk(self, size);
     
     if (chunk == NULL) {
         struct pageHeader * page = page_allocate();
@@ -60,20 +66,21 @@ struct chunk * zone_allocateMedium(struct zone * self, size_t size) {
         }
         page_add(&self->pages, page);
         
-        chunk = (void *) page + sizeof(struct pageHeader) + sizeof(void *);
-        *((void **) ((void *) page + sizeof(struct pageHeader))) = (void *) page + sizeof(struct pageHeader) + sizeof(chunk_sizeType) + chunk->size;
+        chunk = (void *) page + sizeof(struct pageHeader) + sizeof(size_t);
+        *((size_t *) (void *) page + sizeof(struct pageHeader)) = size + ZONE_OVERHEAD;
     }
     chunk->size = size;
-    return chunk;
+    return (void *) chunk + ZONE_OVERHEAD;
 }
 
-bool zone_deallocateMedium(struct zone * self, struct chunk * chunk, struct pageHeader * hint) {
+bool zone_deallocateMedium(struct zone * self, void * pointer, struct pageHeader * hint) {
     // TODO: Check if already freed
+    struct zone_medium_chunk * chunk = pointer - ZONE_OVERHEAD;
     
     chunk->next = self->freeChunks;
     chunk->previous = NULL;
     if (self->freeChunks != NULL) {
-        self->freeChunks->previous = chunk;
+        ((struct zone_medium_chunk *) self->freeChunks)->previous = chunk;
     }
     self->freeChunks = chunk;
     
