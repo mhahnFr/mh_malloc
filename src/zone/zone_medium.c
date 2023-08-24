@@ -12,6 +12,21 @@ struct zone_medium_chunk {
     struct zone_medium_chunk * previous;
 };
 
+static inline bool zone_mediumIsPageEmpty(struct pageHeader * page) {
+    void * end = (void *) page + page->size;
+    
+    for (struct zone_medium_chunk * it = (void *) page + sizeof(struct pageHeader); (void *) it + ZONE_OVERHEAD < end; it += it->size + ZONE_OVERHEAD) {
+        if (it->flag != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+static inline void zone_mediumRemovePage(struct zone * self, struct pageHeader * page) {
+    // TODO: Implement
+}
+
 static inline struct zone_medium_chunk * zone_mediumFindInPage(struct zone * self, size_t size) {
     if (self->pages == NULL) {
         return NULL;
@@ -89,7 +104,9 @@ bool zone_deallocateMedium(struct zone * self, void * pointer, struct pageHeader
     }
     self->freeChunks = chunk;
     
-    // TODO: Check hinted page whether it can be deallocated
+    if (zone_mediumIsPageEmpty(hint)) {
+        zone_mediumRemovePage(self, hint);
+    }
     
     return true;
 }
