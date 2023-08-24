@@ -24,7 +24,22 @@ static inline bool zone_mediumIsPageEmpty(struct pageHeader * page) {
 }
 
 static inline void zone_mediumRemovePage(struct zone * self, struct pageHeader * page) {
-    // TODO: Implement
+    for (struct zone_medium_chunk * it = self->freeChunks; it != NULL; it = it->next) {
+        if (page_hasPointer(page, it)) {
+            if (it->previous != NULL) {
+                it->previous->next = it->next;
+            }
+            if (it->next != NULL) {
+                it->next->previous = it->previous;
+            }
+            if (self->freeChunks == it) {
+                self->freeChunks = it->next;
+            }
+        }
+    }
+    
+    page_remove(&self->pages, page);
+    page_deallocate(page);
 }
 
 static inline struct zone_medium_chunk * zone_mediumFindInPage(struct zone * self, size_t size) {
