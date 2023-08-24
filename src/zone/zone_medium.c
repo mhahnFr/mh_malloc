@@ -66,10 +66,9 @@ static inline struct zone_medium_chunk * zone_mediumFindFreeChunk(struct zone * 
     struct zone_medium_chunk * tmp = NULL;
     for (struct zone_medium_chunk * it = self->freeChunks; it != NULL; it = it->next) {
         if (it->size >= size && (tmp == NULL || it->size < tmp->size)) {
-            // FIXME: Inefficient!
             tmp = it;
-            if (it->size == size) {
-                // Perfect match
+            if (it->size <= size + sizeof(void *) * 2) {
+                // Close enough
                 break;
             }
         }
