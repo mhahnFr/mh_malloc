@@ -17,14 +17,15 @@ static inline struct zone_medium_chunk * zone_mediumFindInPage(struct zone * sel
         return NULL;
     }
     
-    size_t * used = (size_t *) ((void *) self->pages) + sizeof(struct pageHeader);
-    if (self->pages->size - sizeof(struct pageHeader) - *used < size + ZONE_OVERHEAD) {
-        return NULL;
-    }
-    struct zone_medium_chunk * toReturn = (void *) self->pages + sizeof(struct pageHeader) + *used;
-    *used += ZONE_OVERHEAD + size;
+    void * end = (void *) self->pages + self->pages->size;
     
-    return toReturn;
+    struct zone_medium_chunk * it = (void *) self->pages + sizeof(struct pageHeader);
+    
+    for (; (void *) it + ZONE_OVERHEAD < end && it->flag != 0 && it->size != 0; it += it->size + ZONE_OVERHEAD);
+    if ((void *) it + ZONE_OVERHEAD + size < end) {
+        return it;
+    }
+    return NULL;
 }
 
 static inline struct zone_medium_chunk * zone_mediumFindFreeChunk(struct zone * self, size_t size) {
@@ -66,17 +67,21 @@ void * zone_allocateMedium(struct zone * self, size_t size) {
         }
         page_add(&self->pages, page);
         
-        chunk = (void *) page + sizeof(struct pageHeader) + sizeof(size_t);
-        *((size_t *) (void *) page + sizeof(struct pageHeader)) = size + ZONE_OVERHEAD;
+        chunk = (void *) page + sizeof(struct pageHeader);
     }
     chunk->size = size;
+    chunk->flag = 1;
     return (void *) chunk + ZONE_OVERHEAD;
 }
 
 bool zone_deallocateMedium(struct zone * self, void * pointer, struct pageHeader * hint) {
-    // TODO: Check if already freed
     struct zone_medium_chunk * chunk = pointer - ZONE_OVERHEAD;
     
+    if (chunk->flag == 0) {
+        return false;
+    }
+    
+    chunk->flag = 0;
     chunk->next = self->freeChunks;
     chunk->previous = NULL;
     if (self->freeChunks != NULL) {
@@ -84,7 +89,7 @@ bool zone_deallocateMedium(struct zone * self, void * pointer, struct pageHeader
     }
     self->freeChunks = chunk;
     
-    // TODO: Mark as free, check hinted page whether it can be deallocated
+    // TODO: Check hinted page whether it can be deallocated
     
     return true;
 }

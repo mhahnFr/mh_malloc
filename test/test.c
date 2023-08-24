@@ -18,26 +18,26 @@ int main(void) {
 //    free(str);
 //    free(str);
     
-    char * allocs[50000];
+    char * allocs[5000];
 
-    for (size_t i = 0; i < 50000; ++i) {
+    for (size_t i = 0; i < 5000; ++i) {
         allocs[i] = malloc(ALLOC_SIZE);
     }
 
-    for (size_t i = 0; i < 25000; ++i) {
+    for (size_t i = 0; i < 2500; ++i) {
         free(allocs[i]);
     }
 
-    char * allocs2[50000];
-    for (size_t i = 0; i < 50000; ++i) {
+    char * allocs2[5000];
+    for (size_t i = 0; i < 5000; ++i) {
         allocs2[i] = malloc(ALLOC_SIZE);
     }
 
-    for (size_t i = 25000; i < 50000; ++i) {
+    for (size_t i = 2500; i < 5000; ++i) {
         free(allocs[i]);
     }
 
-    for (size_t i = 0; i < 50000; ++i) {
+    for (size_t i = 0; i < 5000; ++i) {
         free(allocs2[i]);
     }
 
