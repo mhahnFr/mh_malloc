@@ -52,7 +52,7 @@ int main(void) {
     }
     {
         for (size_t i = 0; i < 5000; ++i) {
-            __builtin_memset(allocs[i], 'Z', ALLOC_SIZE);
+            __builtin_memset(allocs2[i], 'Z', ALLOC_SIZE);
         }
     }
 
