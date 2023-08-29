@@ -50,6 +50,7 @@
 /* Begin PBXFileReference section */
 		BF2310B22A58415200AB9F35 /* malloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = malloc.h; sourceTree = "<group>"; };
 		BF2310B32A5843EF00AB9F35 /* malloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = malloc.c; sourceTree = "<group>"; };
+		BF243D6E2A9E5CBE00E51F2D /* chunk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chunk.h; sourceTree = "<group>"; };
 		BF30D84E2A780D9A001D4EBF /* pageHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pageHeader.h; sourceTree = "<group>"; };
 		BF30D84F2A780D9A001D4EBF /* pageHeader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pageHeader.c; sourceTree = "<group>"; };
 		BF30D8522A78103B001D4EBF /* error.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
@@ -189,6 +190,7 @@
 				BFD752FA2A8E7A06008F1AD3 /* zone.h */,
 				BFD752FB2A8E7A06008F1AD3 /* zone.c */,
 				BFD752FE2A8E82AA008F1AD3 /* zones.h */,
+				BF243D6E2A9E5CBE00E51F2D /* chunk.h */,
 			);
 			path = zone;
 			sourceTree = "<group>";
