@@ -10,6 +10,8 @@ struct chunk {
     void * previous;
 };
 
+#define CHUNK_MINIMUM_SIZE (sizeof(struct chunk) - sizeof(chunk_flagType))
+
 static inline struct chunk * chunk_fromPointer(void * pointer) {
     return pointer - sizeof(chunk_flagType);
 }

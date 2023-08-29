@@ -14,7 +14,7 @@ struct zones {
 };
 
 static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size) {
-    if (size <= 16) { // FIXME: Gather info!
+    if (size <= CHUNK_MINIMUM_SIZE) {
         return &self->small;
     } else if (size <= PAGE_SIZE) {
         return &self->medium;
