@@ -4,6 +4,6 @@
 #include "../zone.h"
 
 void * zone_allocateLarge(struct zone * self, size_t bytes);
-bool zone_deallocateLarge(struct zone * self, void * pointer, struct pageHeader * hint);
+bool zone_deallocateLarge(struct zone * self, void * pointer);
 
 #endif /* zone_large_h */

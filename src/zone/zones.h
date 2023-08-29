@@ -3,6 +3,8 @@
 
 #include "zone.h"
 
+#include "chunk.h"
+
 #include "../pageHeader.h"
 
 struct zones {
@@ -20,24 +22,17 @@ static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size
     return &self->large;
 }
 
-static inline struct zone * zones_getZoneByPointer(struct zones *       self,
-                                                          void *        pointer,
-                                                   struct pageHeader ** page) {
-    struct pageHeader * tmpPage;
-    struct zone *       toReturn;
+static inline struct zone * zones_getZoneByPointer(struct zones * self, void * pointer) {
+    struct chunk * chunk = chunk_fromPointer(pointer);
     
-    if ((tmpPage = zone_hasPointer(&self->small, pointer)) != NULL) {
-        toReturn = &self->small;
-    } else if ((tmpPage = zone_hasPointer(&self->medium, pointer)) != NULL) {
-        toReturn = &self->medium;
-    } else {
-        toReturn = (tmpPage = zone_hasPointer(&self->large, pointer)) == NULL ? NULL : &self->large;
+    if ((chunk->flag & CHUNK_SMALL) != 0) {
+        return &self->small;
+    } else if ((chunk->flag & CHUNK_MEDIUM) != 0) {
+        return &self->medium;
+    } else if ((chunk->flag & CHUNK_LARGE) != 0) {
+        return &self->large;
     }
-    
-    if (page != NULL) {
-        *page = tmpPage;
-    }
-    return toReturn;
+    return NULL;
 }
 
 #endif /* zones_h */

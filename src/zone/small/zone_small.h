@@ -4,6 +4,6 @@
 #include "../zone.h"
 
 void * zone_allocateSmall(struct zone * self);
-bool zone_deallocateSmall(struct zone * self, void * pointer, struct pageHeader * hint);
+bool zone_deallocateSmall(struct zone * self, void * pointer);
 
 #endif /* zone_small_h */

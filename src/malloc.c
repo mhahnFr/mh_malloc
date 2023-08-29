@@ -39,14 +39,13 @@ void * calloc(size_t count, size_t size) {
     return chunk;
 }
 
-#include <stdlib.h>
 void * realloc(void * ptr, size_t newSize) {
     // TODO: Implement!
     
     (void) ptr;
     (void) newSize;
     
-    abort();
+    __builtin_abort();
 }
 
 void free(void * ptr) {
@@ -54,10 +53,8 @@ void free(void * ptr) {
         return;
     }
     
-    struct pageHeader * hint;
-    
-    struct zone * zone = zones_getZoneByPointer(&zones, ptr, &hint);
-    if (zone == NULL || !zone_deallocate(zone, ptr, hint)) {
+    struct zone * zone = zones_getZoneByPointer(&zones, ptr);
+    if (zone == NULL || !zone_deallocate(zone, ptr)) {
         malloc_error("Pointer being freed was not allocated!");
     }
 }
