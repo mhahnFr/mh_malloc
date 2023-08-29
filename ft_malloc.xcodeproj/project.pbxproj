@@ -120,6 +120,33 @@
 			path = include;
 			sourceTree = "<group>";
 		};
+		BF243D6B2A9E5AC900E51F2D /* large */ = {
+			isa = PBXGroup;
+			children = (
+				BF4416E72A94C5F0000C2499 /* zone_large.h */,
+				BF4416E82A94C5F0000C2499 /* zone_large.c */,
+			);
+			path = large;
+			sourceTree = "<group>";
+		};
+		BF243D6C2A9E5AD200E51F2D /* medium */ = {
+			isa = PBXGroup;
+			children = (
+				BFD752FF2A8E8B88008F1AD3 /* zone_medium.h */,
+				BFD753002A8E8E41008F1AD3 /* zone_medium.c */,
+			);
+			path = medium;
+			sourceTree = "<group>";
+		};
+		BF243D6D2A9E5ADA00E51F2D /* small */ = {
+			isa = PBXGroup;
+			children = (
+				BF4416E32A94C521000C2499 /* zone_small.h */,
+				BF4416E42A94C521000C2499 /* zone_small.c */,
+			);
+			path = small;
+			sourceTree = "<group>";
+		};
 		BF879D542A8BA0A400B1A298 /* test */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,15 +197,12 @@
 		BFD752F92A8E79F2008F1AD3 /* zone */ = {
 			isa = PBXGroup;
 			children = (
+				BF243D6D2A9E5ADA00E51F2D /* small */,
+				BF243D6C2A9E5AD200E51F2D /* medium */,
+				BF243D6B2A9E5AC900E51F2D /* large */,
 				BFD752FA2A8E7A06008F1AD3 /* zone.h */,
 				BFD752FB2A8E7A06008F1AD3 /* zone.c */,
 				BFD752FE2A8E82AA008F1AD3 /* zones.h */,
-				BFD752FF2A8E8B88008F1AD3 /* zone_medium.h */,
-				BFD753002A8E8E41008F1AD3 /* zone_medium.c */,
-				BF4416E32A94C521000C2499 /* zone_small.h */,
-				BF4416E42A94C521000C2499 /* zone_small.c */,
-				BF4416E72A94C5F0000C2499 /* zone_large.h */,
-				BF4416E82A94C5F0000C2499 /* zone_large.c */,
 			);
 			path = zone;
 			sourceTree = "<group>";

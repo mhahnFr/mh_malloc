@@ -1,7 +1,7 @@
 #include "zone.h"
-#include "zone_small.h"
-#include "zone_medium.h"
-#include "zone_large.h"
+#include "small/zone_small.h"
+#include "medium/zone_medium.h"
+#include "large/zone_large.h"
 
 void * zone_allocate(struct zone * self, size_t size) {
     switch (self->type) {
