@@ -18,17 +18,19 @@ static inline bool zone_smallIsPageEmpty(struct pageHeader * page) {
 }
 
 static inline void zone_smallRemovePage(struct zone * self, struct pageHeader * page) {
-    for (struct chunkSmall * it = self->freeChunks; it != NULL; it = it->next) {
-        if (page_hasPointer(page, it)) {
-            if (it->previous != NULL) {
-                it->previous->next = it->next;
-            }
-            if (it->next != NULL) {
-                it->next->previous = it->previous;
-            }
-            if (self->freeChunks == it) {
-                self->freeChunks = it->next;
-            }
+    void * end = (void *) page + page->size;
+    
+    struct chunkSmall * it = (void *) page + sizeof(struct pageHeader);
+    
+    for (; (void *) it + sizeof(struct chunkSmall) < end; ++it) {
+        if (it->previous != NULL) {
+            it->previous->next = it->next;
+        }
+        if (it->next != NULL) {
+            it->next->previous = it->previous;
+        }
+        if (self->freeChunks == it) {
+            self->freeChunks = it->next;
         }
     }
     
