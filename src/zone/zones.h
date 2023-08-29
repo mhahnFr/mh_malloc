@@ -4,7 +4,6 @@
 #include "zone.h"
 
 #include "../pageHeader.h"
-#include "../chunk/chunk.h"
 
 struct zones {
     struct zone small;
@@ -13,7 +12,7 @@ struct zones {
 };
 
 static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size) {
-    if (size <= CHUNK_MINIMUM_SIZE) {
+    if (size <= 16) { // FIXME: Gather info!
         return &self->small;
     } else if (size <= PAGE_SIZE) {
         return &self->medium;
