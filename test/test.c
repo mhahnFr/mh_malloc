@@ -8,6 +8,7 @@ const char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012
 bool value(char * array, char expected, size_t length) {
     for (size_t i = 0; i < length; ++i) {
         if (array[i] != expected) {
+            __builtin_printf("Failed at %zu: '%c' (Length: %zu)\n", i, array[i], length);
             return false;
         }
     }

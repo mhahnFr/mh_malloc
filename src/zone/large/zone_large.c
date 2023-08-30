@@ -2,15 +2,10 @@
 
 #include "zone_large.h"
 
-struct zone_large_chunk {
-    size_t size;
-    
-    struct zone_large_chunk * next;
-    struct zone_large_chunk * previous;
-};
+#include "chunk_large.h"
 
 void * zone_allocateLarge(struct zone * self, size_t size) {
-    struct pageHeader * page = page_allocateMin(size);
+    struct pageHeader * page = page_allocateMin(size + sizeof(struct pageHeader) + sizeof(struct pageHeader *) + sizeof(chunk_flagType));
     
     if (page == NULL) {
         errno = ENOMEM;
@@ -18,19 +13,19 @@ void * zone_allocateLarge(struct zone * self, size_t size) {
     }
     page_add(&self->pages, page);
     
-    struct zone_large_chunk * chunk = (void *) page + sizeof(struct pageHeader);
-    chunk->size = size;
+    struct chunkLarge * chunk = (void *) page + sizeof(struct pageHeader);
+    chunk->parent = page;
+    chunk->flag   = 0;
+    chunk->flag  |= CHUNK_LARGE;
     
-    return (void *) chunk + sizeof(size_t);
+    return chunkLarge_toPointer(chunk);
 }
 
-bool zone_deallocateLarge(struct zone * self, void * pointer, struct pageHeader * hint) {
-    if ((void *) hint + sizeof(struct pageHeader) + sizeof(size_t) != pointer) {
-        return false;
-    }
+bool zone_deallocateLarge(struct zone * self, void * pointer) {
+    struct pageHeader * page = chunkLarge_fromPointer(pointer)->parent;
     
-    page_remove(&self->pages, hint);
-    page_deallocate(hint);
+    page_remove(&self->pages, page);
+    page_deallocate(page);
     
     return true;
 }

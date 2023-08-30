@@ -4,7 +4,8 @@
 #include "../chunk.h"
 
 struct chunkLarge {
-    size_t         size;
+    struct pageHeader * parent;
+    
     chunk_flagType flag;
     
     struct chunkLarge * next;
