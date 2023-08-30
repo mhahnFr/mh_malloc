@@ -94,7 +94,7 @@ void * zone_allocateSmall(struct zone * self) {
     }
     chunk->flag = 0;
     chunk->flag |= CHUNK_SMALL;
-    return (void *) chunk + sizeof(char);
+    return chunkSmall_toPointer(chunk);
 }
 
 bool zone_deallocateSmall(struct zone * self, void * pointer) {

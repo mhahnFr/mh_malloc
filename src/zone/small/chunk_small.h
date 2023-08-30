@@ -4,14 +4,14 @@
 #include "../chunk.h"
 
 struct chunkSmall {
-    char flag;
+    chunk_flagType flag;
     
     struct chunkSmall * next;
     struct chunkSmall * previous;
 };
 
 static inline struct chunkSmall * chunkSmall_fromChunk(struct chunk * chunk) {
-    return chunk;
+    return (struct chunkSmall *) chunk;
 }
 
 static inline struct chunkSmall * chunkSmall_fromPointer(void * pointer) {
@@ -19,7 +19,7 @@ static inline struct chunkSmall * chunkSmall_fromPointer(void * pointer) {
 }
 
 static inline struct chunk * chunkSmall_toChunk(struct chunkSmall * self) {
-    return self;
+    return (struct chunk *) self;
 }
 
 static inline void * chunkSmall_toPointer(struct chunkSmall * self) {
