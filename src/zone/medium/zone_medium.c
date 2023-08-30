@@ -8,7 +8,7 @@ static inline void zone_mediumRemovePage(struct zone * self, struct pageHeader *
     void * end = (void *) page + page->size;
     struct chunkMedium * it = (void *) page + sizeof(struct pageHeader);
     // FIXME: Here and in small: What if the page wasn't used entirely?
-    for (; (void *) it + CHUNK_MEDIUM_OVERHEAD + it->size < end; it = (void *) it + CHUNK_MEDIUM_OVERHEAD + it->size) {
+    for (; (void *) it + CHUNK_MEDIUM_OVERHEAD < end && (void *) it + CHUNK_MEDIUM_OVERHEAD + it->size < end && it->size != 0; it = (void *) it + CHUNK_MEDIUM_OVERHEAD + it->size) {
         if (it->previous != NULL) {
             it->previous->next = it->next;
         }
@@ -31,7 +31,7 @@ static inline struct chunkMedium * zone_mediumFindInPage(struct zone * self, siz
     
     void * end = (void *) self->pages + self->pages->size;
     struct chunkMedium * it = (void *) self->pages + sizeof(struct pageHeader);
-    for (; (void *) it + CHUNK_MEDIUM_OVERHEAD + it->size < end && it->size != 0; it = (void *) it + CHUNK_MEDIUM_OVERHEAD + it->size);
+    for (; (void *) it + CHUNK_MEDIUM_OVERHEAD < end && (void *) it + CHUNK_MEDIUM_OVERHEAD + it->size < end && it->size != 0; it = (void *) it + CHUNK_MEDIUM_OVERHEAD + it->size);
     
     if ((void *) it + CHUNK_MEDIUM_OVERHEAD + size < end) {
         it->size = size;
