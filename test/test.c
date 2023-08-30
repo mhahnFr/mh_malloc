@@ -173,6 +173,6 @@ void testSmall(void) {
 
 int main(void) {
 //    testSmall();
-//    testMiddle();
-    testLarge();
+    testMiddle();
+//    testLarge();
 }

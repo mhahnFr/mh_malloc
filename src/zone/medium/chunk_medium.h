@@ -12,6 +12,8 @@ struct chunkMedium {
     struct chunkMedium * previous;
 };
 
+static const size_t CHUNK_MEDIUM_OVERHEAD = sizeof(size_t) + sizeof(chunk_flagType);
+
 static inline struct chunkMedium * chunkMedium_fromChunk(struct chunk * chunk) {
     return (void *) chunk - sizeof(size_t);
 }
