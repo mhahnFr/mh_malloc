@@ -97,16 +97,16 @@ void * zone_allocateMedium(struct zone * self, size_t size) {
     return chunkMedium_toPointer(chunk);
 }
 
-static inline void zone_mediumFindAndCheckPage(struct zone * self, struct chunkMedium * chunk) {
+static inline bool zone_mediumFindAndCheckPage(struct zone * self, struct chunkMedium * chunk) {
     struct pageHeader * page = zone_mediumFindPageFor(self, chunk);
     
     if (page == NULL) {
-        // TODO: Fail more gracefully -> Return false (here and in small)
-        __builtin_abort();
+        return false;
     }
     if (--(page->allocCount) == 0) {
         zone_mediumRemovePage(self, page);
     }
+    return true;
 }
 
 bool zone_deallocateMedium(struct zone * self, void * pointer) {
@@ -124,7 +124,5 @@ bool zone_deallocateMedium(struct zone * self, void * pointer) {
     }
     self->freeChunks = chunk;
     
-    zone_mediumFindAndCheckPage(self, chunk);
-    
-    return true;
+    return zone_mediumFindAndCheckPage(self, chunk);
 }
