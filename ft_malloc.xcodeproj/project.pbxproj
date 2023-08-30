@@ -64,6 +64,7 @@
 		BF879D5A2A8BA0D700B1A298 /* test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test.c; sourceTree = "<group>"; };
 		BF879D602A8BA54400B1A298 /* warn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = warn.h; sourceTree = "<group>"; };
 		BF879D612A8BA54500B1A298 /* warn.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = warn.c; sourceTree = "<group>"; };
+		BFAACC382A9F9F8500804478 /* chunk_large.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chunk_large.h; sourceTree = "<group>"; };
 		BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libft_malloc.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFB4EA092A583CC5009376F1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BFB4EA0A2A583D20009376F1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -122,6 +123,7 @@
 			children = (
 				BF4416E72A94C5F0000C2499 /* zone_large.h */,
 				BF4416E82A94C5F0000C2499 /* zone_large.c */,
+				BFAACC382A9F9F8500804478 /* chunk_large.h */,
 			);
 			path = large;
 			sourceTree = "<group>";
