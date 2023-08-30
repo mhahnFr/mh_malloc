@@ -20,7 +20,8 @@ struct pageHeader * page_allocateMin(size_t minimum) {
     if (toReturn == NULL) {
         malloc_warn("Unable to allocate page!");
     } else {
-        toReturn->size = size;
+        toReturn->size       = size;
+        toReturn->allocCount = 0;
     }
     return toReturn;
 }

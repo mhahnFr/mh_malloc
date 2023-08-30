@@ -12,6 +12,7 @@ struct pageHeader {
     struct pageHeader * next;
     
     size_t size;
+    size_t allocCount;
 };
 
 size_t page_getPageSize(void);
