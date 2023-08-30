@@ -65,6 +65,7 @@
 		BF879D602A8BA54400B1A298 /* warn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = warn.h; sourceTree = "<group>"; };
 		BF879D612A8BA54500B1A298 /* warn.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = warn.c; sourceTree = "<group>"; };
 		BFAACC382A9F9F8500804478 /* chunk_large.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chunk_large.h; sourceTree = "<group>"; };
+		BFAACC392A9FAC3900804478 /* chunk_medium.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chunk_medium.h; sourceTree = "<group>"; };
 		BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libft_malloc.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFB4EA092A583CC5009376F1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BFB4EA0A2A583D20009376F1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -133,6 +134,7 @@
 			children = (
 				BFD752FF2A8E8B88008F1AD3 /* zone_medium.h */,
 				BFD753002A8E8E41008F1AD3 /* zone_medium.c */,
+				BFAACC392A9FAC3900804478 /* chunk_medium.h */,
 			);
 			path = medium;
 			sourceTree = "<group>";
