@@ -46,11 +46,11 @@ void testMiddle(void) {
         allocs2[i] = malloc(ALLOC_SIZE * (i % 10 + 1));
         __builtin_memset(allocs2[i], alphabet[i % len], ALLOC_SIZE * (i % 10 + 1));
         free(allocs2[i]);
-        allocs2[i] = malloc(ALLOC_SIZE * i);
+        allocs2[i] = malloc(ALLOC_SIZE * (i == 0 ? 1 : i));
     }
     {
         for (size_t i = 0; i < 5000; ++i) {
-            __builtin_memset(allocs2[i], alphabet[i % len], ALLOC_SIZE * i);
+            __builtin_memset(allocs2[i], alphabet[i % len], ALLOC_SIZE * (i == 0 ? 1 : i));
         }
     }
 
@@ -60,7 +60,7 @@ void testMiddle(void) {
     }
 
     for (size_t i = 0; i < 5000; ++i) {
-        assert(value(allocs2[i], alphabet[i % len], ALLOC_SIZE * i));
+        assert(value(allocs2[i], alphabet[i % len], ALLOC_SIZE * (i == 0 ? 1 : i)));
         free(allocs2[i]);
     }
 
