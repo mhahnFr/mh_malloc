@@ -171,7 +171,7 @@ void testSmall(void) {
 }
 
 int main(void) {
-//    testSmall();
+    testSmall();
 //    testMiddle();
-    testLarge();
+//    testLarge();
 }
