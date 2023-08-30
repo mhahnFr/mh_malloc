@@ -66,16 +66,16 @@ static inline struct chunkSmall * zone_smallFindFreeChunk(struct zone * self) {
     return toReturn;
 }
 
-static inline void zone_smallFindAndCheckPage(struct zone * self, struct chunkSmall * chunk) {
+static inline bool zone_smallFindAndCheckPage(struct zone * self, struct chunkSmall * chunk) {
     struct pageHeader * page = zone_smallFindPageFor(self, chunk);
     
     if (page == NULL) {
-        // TODO: Fail more gracefully
-        __builtin_abort();
+        return false;
     }
     if (--(page->allocCount) == 0) {
         zone_smallRemovePage(self, page);
     }
+    return true;
 }
 
 void * zone_allocateSmall(struct zone * self) {
@@ -112,7 +112,5 @@ bool zone_deallocateSmall(struct zone * self, void * pointer) {
     self->freeChunks = chunk;
     chunk->flag |= CHUNK_FREED;
     
-    zone_smallFindAndCheckPage(self, chunk);
-    
-    return true;
+    return zone_smallFindAndCheckPage(self, chunk);
 }
