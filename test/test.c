@@ -173,13 +173,17 @@ void testSmall(void) {
 }
 
 int main(int argc, char ** argv) {
-    if (argc > 1) {
-        for (int i = 1; i < argc; ++i) {
-            switch (strtol(argv[i], NULL, 10)) {
-                case 0: testSmall();  break;
-                case 1: testMiddle(); break;
-                case 2: testLarge();  break;
-            }
+    if (argc < 2) {
+        return 1;
+    }
+    for (int i = 1; i < argc; ++i) {
+        const long num = strtol(argv[i], NULL, 10);
+        switch (num) {
+            case 0: testSmall();  break;
+            case 1: testMiddle(); break;
+            case 2: testLarge();  break;
+                
+            default: __builtin_printf("Unknown test: %ld (%s)\n", num, argv[i]);
         }
     }
 }
