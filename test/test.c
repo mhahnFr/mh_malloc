@@ -174,6 +174,10 @@ void testSmall(void) {
 
 int main(int argc, char ** argv) {
     if (argc < 2) {
+        __builtin_printf("Usage: %s [0 1 2]\n", *argv);
+        __builtin_printf(" - 0: Runs the small allocator tests\n");
+        __builtin_printf(" - 1: Runs the medium allocator tests\n");
+        __builtin_printf(" - 2: Runs the large allocator tests\n");
         return 1;
     }
     for (int i = 1; i < argc; ++i) {
