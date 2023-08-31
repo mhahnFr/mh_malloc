@@ -197,3 +197,35 @@ void * zoneMedium_allocate(struct zone * self, size_t size) {
     page->slices = NULL;
     return chunkMedium_toPointer(slicer_allocate(page, size));
 }
+
+static inline void slicer_deallocate(struct pageHeader * page, struct chunkMedium * chunk) {
+    for (struct chunkMedium * it = page->slices; it != NULL; it = it->next) {
+        if ((void *) it + CHUNK_MEDIUM_OVERHEAD + it->size == (void *) chunk) {
+            it->size += CHUNK_MEDIUM_OVERHEAD + chunk->size;
+            return;
+        }
+    }
+    chunk->previous = NULL;
+    chunk->next = page->slices;
+    if (page->slices != NULL) {
+        ((struct chunkMedium *) page->slices)->previous = chunk;
+    }
+    page->slices = chunk;
+}
+
+static inline bool slicer_empty(struct pageHeader * page) {
+    return page->slices != NULL && ((struct chunkMedium *) page->slices)->next == NULL && ((struct chunkMedium *) page->slices)->size == page->size - sizeof(struct pageHeader);
+}
+
+bool zoneMedium_deallocate(struct zone * self, void * pointer) {
+    struct pageHeader * page = zone_mediumFindPageFor(self, pointer);
+    if (page == NULL) {
+        return false;
+    }
+    slicer_deallocate(page, chunkMedium_fromPointer(pointer));
+    if (slicer_empty(page)) {
+        page_remove(&self->pages, page);
+        page_deallocate(page);
+    }
+    return true;
+}
