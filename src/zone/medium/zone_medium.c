@@ -224,7 +224,12 @@ bool zoneMedium_deallocate(struct zone * self, void * pointer) {
     if (page == NULL) {
         return false;
     }
-    slicer_deallocate(page, chunkMedium_fromPointer(pointer));
+    struct chunkMedium * chunk = chunkMedium_fromPointer(pointer);
+    if ((chunk->flag & CHUNK_FREED) != 0) {
+        return false;
+    }
+    chunk->flag |= CHUNK_FREED;
+    slicer_deallocate(page, chunk);
     if (slicer_empty(page)) {
         page_remove(&self->pages, page);
         page_deallocate(page);
