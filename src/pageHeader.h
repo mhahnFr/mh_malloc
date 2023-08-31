@@ -13,6 +13,7 @@ struct pageHeader {
     
     size_t size;
     size_t allocCount;
+    void * slices;
 };
 
 size_t page_getPageSize(void);
