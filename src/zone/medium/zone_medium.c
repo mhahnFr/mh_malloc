@@ -127,20 +127,22 @@ bool zone_deallocateMedium(struct zone * self, void * pointer) {
     return zone_mediumFindAndCheckPage(self, chunk);
 }
 
-// slices: struct chunkMedium *;
 static inline struct chunkMedium * slicer_allocate(struct pageHeader * page, size_t size) {
     if (page->slices == NULL) {
-        struct chunkMedium * chunk = (void *) page + sizeof(struct pageHeader);
-        chunk->size = size;
-        chunk->flag = 0;
-        chunk->flag |= CHUNK_MEDIUM;
-        
-        struct chunkMedium * f = (void *) chunk + CHUNK_MEDIUM_OVERHEAD + size;
-        f->next = NULL;
-        f->previous = NULL;
-        page->slices = f;
-        
-        return chunk;
+        struct chunkMedium * toReturn = (void *) page + page->size - size - CHUNK_MEDIUM_OVERHEAD; // -1 ?
+        toReturn->flag = 0;
+        toReturn->flag |= CHUNK_MEDIUM;
+        if ((void *) toReturn - (void *) page - sizeof(struct pageHeader) <= sizeof(struct chunkMedium)) {
+            toReturn->size = page->size - sizeof(struct pageHeader);
+        } else {
+            toReturn->size = size;
+            struct chunkMedium * f = (void *) page + sizeof(struct pageHeader);
+            f->next = NULL;
+            f->previous = NULL;
+            f->size = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD - size;
+            page->slices = f;
+        }
+        return toReturn;
     }
     struct chunkMedium * biggest  = NULL;
     struct chunkMedium * smallest = NULL;
