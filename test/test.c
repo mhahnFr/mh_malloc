@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "../include/malloc.h"
 
@@ -171,8 +172,14 @@ void testSmall(void) {
     __builtin_printf("Test Small --- Finished.\n");
 }
 
-int main(void) {
-//    testSmall();
-    testMiddle();
-//    testLarge();
+int main(int argc, char ** argv) {
+    if (argc > 1) {
+        for (int i = 1; i < argc; ++i) {
+            switch (strtol(argv[i], NULL, 10)) {
+                case 0: testSmall();  break;
+                case 1: testMiddle(); break;
+                case 2: testLarge();  break;
+            }
+        }
+    }
 }
