@@ -12,7 +12,7 @@ static inline struct pageHeader * zone_mediumFindPageFor(struct zone * self, voi
 
 static inline struct chunkMedium * slicer_allocate(struct pageHeader * page, size_t size) {
     if (page->slices == NULL) {
-        struct chunkMedium * toReturn = (void *) page + page->size - size - CHUNK_MEDIUM_OVERHEAD; // -1 ?
+        struct chunkMedium * toReturn = (void *) page + page->size - size - CHUNK_MEDIUM_OVERHEAD - 1;
         toReturn->flag = 0;
         toReturn->flag |= CHUNK_MEDIUM;
         if ((void *) toReturn - (void *) page - sizeof(struct pageHeader) <= sizeof(struct chunkMedium)) {
@@ -22,7 +22,7 @@ static inline struct chunkMedium * slicer_allocate(struct pageHeader * page, siz
             struct chunkMedium * f = (void *) page + sizeof(struct pageHeader);
             f->next = NULL;
             f->previous = NULL;
-            f->size = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD - size;
+            f->size = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD * 2 - size - 1;
             page->slices = f;
         }
         return toReturn;
