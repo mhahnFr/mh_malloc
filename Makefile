@@ -23,7 +23,7 @@ endif
 all: $(NAME)
 
 run: $(TEST_NAME)
-	./$(TEST_NAME)
+	./$(TEST_NAME) 0 1 2
 
 $(TEST_NAME): $(NAME) $(TEST_OBJS)
 	$(CC) $(TEST_LDFLAGS) $(TEST_OBJS) $(NAME) -o $(TEST_NAME)
