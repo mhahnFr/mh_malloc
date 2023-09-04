@@ -1,22 +1,35 @@
 #ifndef zones_h
 #define zones_h
 
+#include <stdbool.h>
+
 #include "zone.h"
+#include "medium/zone_medium.h"
 
 #include "chunk.h"
 
 #include "../pageHeader.h"
 
 struct zones {
+    struct {
+        bool inited;
+        size_t size;
+    } pageSize;
+    
     struct zone small;
     struct zone medium;
     struct zone large;
 };
 
 static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size) {
+    if (!self->pageSize.inited) {
+        self->pageSize.size = page_getPageSize() * PAGE_FACTOR;
+        self->pageSize.inited = true;
+    }
+    
     if (size <= CHUNK_MINIMUM_SIZE) {
         return &self->small;
-    } else if (size <= PAGE_SIZE) {
+    } else if (size <= zone_mediumMaximumSize(self->pageSize.size)) {
         return &self->medium;
     }
     return &self->large;

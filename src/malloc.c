@@ -8,6 +8,8 @@
 #include "zone/zones.h"
 
 static struct zones zones = {
+    { .inited = false },
+    
     { ZONE_SMALL,  NULL, NULL },
     { ZONE_MEDIUM, NULL, NULL },
     { ZONE_LARGE,  NULL, NULL }
