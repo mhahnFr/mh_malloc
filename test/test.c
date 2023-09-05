@@ -10,7 +10,7 @@ static inline size_t cap(size_t value, size_t cap) {
     return value > cap ? cap : value;
 }
 
-bool value(char * array, char expected, size_t length) {
+static inline bool value(char * array, char expected, size_t length) {
     for (size_t i = 0; i < length; ++i) {
         if (array[i] != expected) {
             __builtin_printf("Failed at %zu: '%c' (Length: %zu)\n", i, array[i], length);
@@ -20,7 +20,7 @@ bool value(char * array, char expected, size_t length) {
     return true;
 }
 
-void testMiddle(void) {
+static inline void testMiddle(void) {
     const size_t MIDDLE_CAP  = 32700;
     const size_t ALLOC_SIZE1 = 5555;
     const size_t ALLOC_SIZE  = 17;
@@ -76,7 +76,7 @@ void testMiddle(void) {
     __builtin_printf("Test Middle --- Finished.\n");
 }
 
-void testLarge(void) {
+static inline void testLarge(void) {
     const size_t ALLOC_SIZE1 = 38000;
     const size_t ALLOC_SIZE  = 33000;
     
@@ -128,7 +128,7 @@ void testLarge(void) {
     __builtin_printf("Test Large --- Finished.\n");
 }
 
-void testSmall(void) {
+static inline void testSmall(void) {
     const size_t ALLOC_SIZE1 = 16;
     const size_t ALLOC_SIZE  = 1;
     
