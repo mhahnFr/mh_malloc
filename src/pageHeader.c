@@ -15,7 +15,7 @@ struct pageHeader * page_allocateMin(size_t minimum) {
                           /*   prot: */ PROT_READ | PROT_WRITE,
                           /*  flags: */ MAP_ANONYMOUS | MAP_SHARED,
                           /*     fd: */ -1,
-                          /* offset: */ page_getPageSize());
+                          /* offset: */ pageSize);
     
     if (toReturn == NULL) {
         malloc_warn("Unable to allocate page!");
