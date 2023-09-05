@@ -20,14 +20,14 @@ static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * pa
         toReturn->size = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD;
         toReturn->flag = 0;
         toReturn->flag |= CHUNK_MEDIUM;
-        page->slices = NULL;
+        page->pageLocal.slices = NULL;
     } else {
         toReturn->size = size;
         struct chunkMedium * tmp = (void *) page + sizeof(struct pageHeader);
         tmp->next = NULL;
         tmp->previous = NULL;
         tmp->size = remainder;
-        page->slices = tmp;
+        page->pageLocal.slices = tmp;
     }
     return toReturn;
 }
@@ -35,7 +35,7 @@ static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * pa
 static inline struct chunkMedium * slicer_allocate(struct pageHeader * page, size_t size) {
     struct chunkMedium * biggest  = NULL;
     struct chunkMedium * smallest = NULL;
-    for (struct chunkMedium * it = page->slices; it != NULL; it = it->next) {
+    for (struct chunkMedium * it = page->pageLocal.slices; it != NULL; it = it->next) {
         if (it->size >= size) {
             if (biggest == NULL || it->size > biggest->size) {
                 biggest = it;
@@ -55,8 +55,8 @@ static inline struct chunkMedium * slicer_allocate(struct pageHeader * page, siz
         if (smallest->next != NULL) {
             smallest->next->previous = smallest->previous;
         }
-        if (page->slices == smallest) {
-            page->slices = smallest->next;
+        if (page->pageLocal.slices == smallest) {
+            page->pageLocal.slices = smallest->next;
         }
         smallest->flag = 0;
         smallest->flag |= CHUNK_MEDIUM;
@@ -85,27 +85,27 @@ void * zone_allocateMedium(struct zone * self, size_t size) {
         return NULL;
     }
     page_add(&self->pages, page);
-    page->slices = NULL;
+    page->pageLocal.slices = NULL;
     return chunkMedium_toPointer(slicer_firstAllocation(page, size));
 }
 
 static inline void slicer_deallocate(struct pageHeader * page, struct chunkMedium * chunk) {
-    for (struct chunkMedium * it = page->slices; it != NULL; it = it->next) {
+    for (struct chunkMedium * it = page->pageLocal.slices; it != NULL; it = it->next) {
         if ((void *) it + CHUNK_MEDIUM_OVERHEAD + it->size == (void *) chunk) {
             it->size += CHUNK_MEDIUM_OVERHEAD + chunk->size;
             return;
         }
     }
     chunk->previous = NULL;
-    chunk->next = page->slices;
-    if (page->slices != NULL) {
-        ((struct chunkMedium *) page->slices)->previous = chunk;
+    chunk->next = page->pageLocal.slices;
+    if (page->pageLocal.slices != NULL) {
+        ((struct chunkMedium *) page->pageLocal.slices)->previous = chunk;
     }
-    page->slices = chunk;
+    page->pageLocal.slices = chunk;
 }
 
 static inline bool slicer_empty(struct pageHeader * page) {
-    return page->slices != NULL && ((struct chunkMedium *) page->slices)->next == NULL && ((struct chunkMedium *) page->slices)->size == page->size - sizeof(struct pageHeader);// - CHUNK_MEDIUM_OVERHEAD;
+    return page->pageLocal.slices != NULL && ((struct chunkMedium *) page->pageLocal.slices)->next == NULL && ((struct chunkMedium *) page->pageLocal.slices)->size == page->size - sizeof(struct pageHeader);// - CHUNK_MEDIUM_OVERHEAD;
 }
 
 bool zone_deallocateMedium(struct zone * self, void * pointer) {

@@ -12,8 +12,11 @@ struct pageHeader {
     struct pageHeader * next;
     
     size_t size;
-    size_t allocCount;
-    void * slices;
+    
+    union {
+        size_t allocCount;
+        void * slices;
+    } pageLocal;
 };
 
 size_t page_getPageSize(void);

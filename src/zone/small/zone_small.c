@@ -37,7 +37,7 @@ static inline struct chunkSmall * zone_smallFindInPage(struct zone * self) {
     for (; (void *) it + sizeof(struct chunkSmall) < end && it->flag != 0; ++it);
 
     if ((void *) it + sizeof(struct chunkSmall) < end) {
-        self->pages->allocCount++;
+        self->pages->pageLocal.allocCount++;
         return (void *) it;
     }
     return NULL;
@@ -61,7 +61,7 @@ static inline struct chunkSmall * zone_smallFindFreeChunk(struct zone * self) {
         ((struct chunkSmall *) self->freeChunks)->previous = NULL;
     }
     
-    zone_smallFindPageFor(self, toReturn)->allocCount++;
+    zone_smallFindPageFor(self, toReturn)->pageLocal.allocCount++;
     
     return toReturn;
 }
@@ -72,7 +72,7 @@ static inline bool zone_smallFindAndCheckPage(struct zone * self, struct chunkSm
     if (page == NULL) {
         return false;
     }
-    if (--(page->allocCount) == 0) {
+    if (--(page->pageLocal.allocCount) == 0) {
         zone_smallRemovePage(self, page);
     }
     return true;
@@ -88,7 +88,7 @@ void * zone_allocateSmall(struct zone * self) {
             return NULL;
         }
         page_add(&self->pages, page);
-        page->allocCount = 1;
+        page->pageLocal.allocCount = 1;
         
         chunk = (void *) page + sizeof(struct pageHeader);
     }
