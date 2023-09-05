@@ -23,7 +23,7 @@ struct zones {
 
 static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size) {
     if (!self->pageSize.inited) {
-        self->pageSize.size = page_getPageSize() * PAGE_FACTOR;
+        self->pageSize.size = PAGE_SIZE;
         self->pageSize.inited = true;
     }
     
