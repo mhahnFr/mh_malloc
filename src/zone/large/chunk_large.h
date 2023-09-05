@@ -4,8 +4,6 @@
 #include "../chunk.h"
 
 struct chunkLarge {
-    struct pageHeader * parent;
-    
     chunk_flagType flag;
     
     struct chunkLarge * next;
@@ -13,7 +11,7 @@ struct chunkLarge {
 };
 
 static inline struct chunkLarge * chunkLarge_fromChunk(struct chunk * chunk) {
-    return (void *) chunk - sizeof(size_t);
+    return (void *) chunk;
 }
 
 static inline struct chunkLarge * chunkLarge_fromPointer(void * pointer) {
@@ -21,7 +19,7 @@ static inline struct chunkLarge * chunkLarge_fromPointer(void * pointer) {
 }
 
 static inline struct chunk * chunkLarge_toChunk(struct chunkLarge * self) {
-    return (void *) self + sizeof(size_t);
+    return (void *) self;
 }
 
 static inline void * chunkLarge_toPointer(struct chunkLarge * self) {
