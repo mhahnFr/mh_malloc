@@ -17,10 +17,12 @@ static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * pa
     toReturn->flag |= CHUNK_MEDIUM;
     const size_t remainder = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD * 2 - size - 1;
     if (remainder + CHUNK_MEDIUM_OVERHEAD <= sizeof(struct chunkMedium)) {
+        assert((void *) toReturn >= (void *) page + sizeof(struct pageHeader));
+        toReturn = (void *) page + sizeof(struct pageHeader);
         toReturn->size = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD;
+        toReturn->flag = 0;
+        toReturn->flag |= CHUNK_MEDIUM;
         page->slices = NULL;
-//        // TODO: Zuschlagen
-        __builtin_abort();
     } else {
         toReturn->size = size;
         struct chunkMedium * tmp = (void *) page + sizeof(struct pageHeader);
