@@ -4,7 +4,6 @@
 
 #include "chunk_medium.h"
 
-#include <assert.h>
 static inline struct pageHeader * zone_mediumFindPageFor(struct zone * self, void * pointer) {
     struct pageHeader * it;
     for (it = self->pages; it != NULL && !page_hasPointer(it, pointer); it = it->next);
@@ -17,7 +16,6 @@ static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * pa
     toReturn->flag |= CHUNK_MEDIUM;
     const size_t remainder = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD * 2 - size - 1;
     if (remainder + CHUNK_MEDIUM_OVERHEAD <= sizeof(struct chunkMedium)) {
-        assert((void *) toReturn >= (void *) page + sizeof(struct pageHeader));
         toReturn = (void *) page + sizeof(struct pageHeader);
         toReturn->size = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD;
         toReturn->flag = 0;
@@ -31,7 +29,6 @@ static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * pa
         tmp->size = remainder;
         page->slices = tmp;
     }
-    __builtin_printf("A\n");
     return toReturn;
 }
 
@@ -108,7 +105,7 @@ static inline void slicer_deallocate(struct pageHeader * page, struct chunkMediu
 }
 
 static inline bool slicer_empty(struct pageHeader * page) {
-    return page->slices != NULL && ((struct chunkMedium *) page->slices)->next == NULL && ((struct chunkMedium *) page->slices)->size == page->size - sizeof(struct pageHeader);
+    return page->slices != NULL && ((struct chunkMedium *) page->slices)->next == NULL && ((struct chunkMedium *) page->slices)->size == page->size - sizeof(struct pageHeader);// - CHUNK_MEDIUM_OVERHEAD;
 }
 
 bool zone_deallocateMedium(struct zone * self, void * pointer) {
@@ -121,11 +118,12 @@ bool zone_deallocateMedium(struct zone * self, void * pointer) {
         return false;
     }
     chunk->flag |= CHUNK_FREED;
-    slicer_deallocate(page, chunk);
-    if (slicer_empty(page)) {
-        page_remove(&self->pages, page);
-        page_deallocate(page);
-    }
+//    slicer_deallocate(page, chunk);
+//    if (slicer_empty(page)) {
+////        __builtin_printf("Removed page\n");
+//        page_remove(&self->pages, page);
+//        page_deallocate(page);
+//    }
     return true;
 }
 
