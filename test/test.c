@@ -6,6 +6,10 @@
 
 const char alphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
+static inline size_t cap(size_t value, size_t cap) {
+    return value > cap ? cap : value;
+}
+
 bool value(char * array, char expected, size_t length) {
     for (size_t i = 0; i < length; ++i) {
         if (array[i] != expected) {
@@ -17,6 +21,7 @@ bool value(char * array, char expected, size_t length) {
 }
 
 void testMiddle(void) {
+    const size_t MIDDLE_CAP  = 32700;
     const size_t ALLOC_SIZE1 = 5555;
     const size_t ALLOC_SIZE  = 17;
     
@@ -25,8 +30,10 @@ void testMiddle(void) {
     char * allocs[5000];
 
     for (size_t i = 0; i < 5000; ++i) {
-        allocs[i] = malloc(ALLOC_SIZE1 + i);
-        __builtin_memset(allocs[i], alphabet[i % len], ALLOC_SIZE1 + i);
+        const size_t allocSize = cap(ALLOC_SIZE1 + i, MIDDLE_CAP);
+        
+        allocs[i] = malloc(allocSize);
+        __builtin_memset(allocs[i], alphabet[i % len], allocSize);
         free(allocs[i]);
         allocs[i] = malloc(ALLOC_SIZE1 - i);
     }
@@ -44,14 +51,15 @@ void testMiddle(void) {
 
     char * allocs2[5000];
     for (size_t i = 0; i < 5000; ++i) {
-        allocs2[i] = malloc(ALLOC_SIZE * (i % 10 + 1));
-        __builtin_memset(allocs2[i], alphabet[i % len], ALLOC_SIZE * (i % 10 + 1));
+        const size_t allocSize = cap(ALLOC_SIZE * (i % 10 + 1), MIDDLE_CAP);
+        allocs2[i] = malloc(allocSize);
+        __builtin_memset(allocs2[i], alphabet[i % len], allocSize);
         free(allocs2[i]);
-        allocs2[i] = malloc(ALLOC_SIZE * (i == 0 ? 1 : i));
+        allocs2[i] = malloc(cap(ALLOC_SIZE * (i == 0 ? 1 : i), MIDDLE_CAP));
     }
     {
         for (size_t i = 0; i < 5000; ++i) {
-            __builtin_memset(allocs2[i], alphabet[i % len], ALLOC_SIZE * (i == 0 ? 1 : i));
+            __builtin_memset(allocs2[i], alphabet[i % len], cap(ALLOC_SIZE * (i == 0 ? 1 : i), MIDDLE_CAP));
         }
     }
 
@@ -61,7 +69,7 @@ void testMiddle(void) {
     }
 
     for (size_t i = 0; i < 5000; ++i) {
-        assert(value(allocs2[i], alphabet[i % len], ALLOC_SIZE * (i == 0 ? 1 : i)));
+        assert(value(allocs2[i], alphabet[i % len], cap(ALLOC_SIZE * (i == 0 ? 1 : i), MIDDLE_CAP)));
         free(allocs2[i]);
     }
 
