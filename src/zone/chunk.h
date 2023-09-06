@@ -1,7 +1,7 @@
 #ifndef chunk_h
 #define chunk_h
 
-typedef char chunk_flagType;
+typedef unsigned char chunk_flagType;
 
 struct chunk {
     chunk_flagType flag;
