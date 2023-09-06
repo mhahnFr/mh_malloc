@@ -51,7 +51,6 @@
 		BF2310B22A58415200AB9F35 /* malloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = malloc.h; sourceTree = "<group>"; };
 		BF2310B32A5843EF00AB9F35 /* malloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = malloc.c; sourceTree = "<group>"; };
 		BF243D6E2A9E5CBE00E51F2D /* chunk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chunk.h; sourceTree = "<group>"; };
-		BF243D6F2A9E622000E51F2D /* chunk_small.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chunk_small.h; sourceTree = "<group>"; };
 		BF30D84E2A780D9A001D4EBF /* pageHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pageHeader.h; sourceTree = "<group>"; };
 		BF30D84F2A780D9A001D4EBF /* pageHeader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pageHeader.c; sourceTree = "<group>"; };
 		BF30D8522A78103B001D4EBF /* error.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
@@ -142,7 +141,6 @@
 			children = (
 				BF4416E32A94C521000C2499 /* zone_small.h */,
 				BF4416E42A94C521000C2499 /* zone_small.c */,
-				BF243D6F2A9E622000E51F2D /* chunk_small.h */,
 			);
 			path = small;
 			sourceTree = "<group>";

@@ -6,8 +6,8 @@ typedef char chunk_flagType;
 struct chunk {
     chunk_flagType flag;
     
-    void * next;
-    void * previous;
+    struct chunk * next;
+    struct chunk * previous;
 };
 
 #define CHUNK_OVERHEAD (sizeof(struct chunk) - 2 * sizeof(void *))
