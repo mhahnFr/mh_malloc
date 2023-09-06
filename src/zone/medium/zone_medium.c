@@ -107,7 +107,11 @@ static inline void slicer_deallocate(struct pageHeader * page, struct chunkMediu
 }
 
 static inline bool slicer_empty(struct pageHeader * page) {
-    return page->pageLocal.slices != NULL && ((struct chunkMedium *) page->pageLocal.slices)->next == NULL && ((struct chunkMedium *) page->pageLocal.slices)->size == page->size - sizeof(struct pageHeader);// - CHUNK_MEDIUM_OVERHEAD;
+    size_t freeBytes = 0;
+    for (struct chunkMedium * it = page->pageLocal.slices; it != NULL; it = it->next) {
+        freeBytes += it->size + CHUNK_MEDIUM_OVERHEAD;
+    }
+    return freeBytes + sizeof(struct pageHeader) == page->size;
 }
 
 bool zone_deallocateMedium(struct zone * self, void * pointer) {
@@ -120,12 +124,11 @@ bool zone_deallocateMedium(struct zone * self, void * pointer) {
         return false;
     }
     chunk->flag |= CHUNK_FREED;
-//    slicer_deallocate(page, chunk);
-//    if (slicer_empty(page)) {
-////        __builtin_printf("Removed page\n");
-//        page_remove(&self->pages, page);
-//        page_deallocate(page);
-//    }
+    slicer_deallocate(page, chunk);
+    if (slicer_empty(page)) {
+        page_remove(&self->pages, page);
+        page_deallocate(page);
+    }
     return true;
 }
 
