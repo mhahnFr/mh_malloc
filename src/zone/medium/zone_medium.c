@@ -149,3 +149,13 @@ bool zone_deallocateMedium(struct zone * self, void * pointer) {
 size_t zone_mediumMaximumSize(const size_t pageSize) {
     return pageSize - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD;
 }
+
+bool zoneMedium_enlarge(struct zone * self, void * pointer, size_t newSize) {
+    // TODO: Implement
+    
+    return false;
+}
+
+size_t zoneMedium_getAllocationSize(void * pointer) {
+    return chunkMedium_fromPointer(pointer)->size;
+}
