@@ -89,3 +89,16 @@ bool zone_deallocateSmall(struct zone * self, void * pointer) {
     }
     return true;
 }
+
+bool zoneSmall_enlarge(struct zone * self, void * pointer, size_t newSize) {
+    (void) self;
+    (void) pointer;
+    
+    return newSize <= CHUNK_MINIMUM_SIZE;
+}
+
+size_t zoneSmall_getAllocationSize(void * pointer) {
+    (void) pointer;
+    
+    return CHUNK_MINIMUM_SIZE;
+}
