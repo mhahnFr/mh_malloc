@@ -33,9 +33,11 @@ bool zone_deallocateLarge(struct zone * self, void * pointer) {
 }
 
 bool zoneLarge_enlarge(struct zone * self, void * pointer, size_t newSize) {
-    // TODO: Implement
+    (void) self;
     
-    return false;
+    const struct pageHeader * page = (void *) chunk_fromPointer(pointer) - sizeof(struct pageHeader);
+    
+    return newSize < page->size - sizeof(struct pageHeader) - CHUNK_OVERHEAD;
 }
 
 size_t zoneLarge_getAllocationSize(void * pointer) {
