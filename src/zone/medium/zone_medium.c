@@ -11,10 +11,10 @@ static inline struct pageHeader * zone_mediumFindPageFor(struct zone * self, voi
 }
 
 static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * page, size_t size) {
-    struct chunkMedium * toReturn = (void *) page + page->size - size - CHUNK_MEDIUM_OVERHEAD - 1;
+    struct chunkMedium * toReturn = (void *) page + page->size - size - CHUNK_MEDIUM_OVERHEAD;
     toReturn->flag = 0;
     toReturn->flag |= CHUNK_MEDIUM;
-    const size_t remainder = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD * 2 - size - 1;
+    const size_t remainder = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD * 2 - size;
     if (remainder + CHUNK_MEDIUM_OVERHEAD <= sizeof(struct chunkMedium)) {
         toReturn = (void *) page + sizeof(struct pageHeader);
         toReturn->size = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD;
@@ -27,6 +27,8 @@ static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * pa
         tmp->next = NULL;
         tmp->previous = NULL;
         tmp->size = remainder;
+        tmp->flag = 0;
+        tmp->flag |= CHUNK_FREED;
         page->pageLocal.slices = tmp;
     }
     return toReturn;

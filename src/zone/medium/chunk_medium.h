@@ -12,22 +12,14 @@ struct chunkMedium {
     struct chunkMedium * previous;
 };
 
-static const size_t CHUNK_MEDIUM_OVERHEAD = sizeof(size_t) + sizeof(chunk_flagType);
-
-static inline struct chunkMedium * chunkMedium_fromChunk(struct chunk * chunk) {
-    return (void *) chunk - sizeof(size_t);
-}
+static const size_t CHUNK_MEDIUM_OVERHEAD = sizeof(struct chunkMedium) - 2 * sizeof(struct chunkMedium *);
 
 static inline struct chunkMedium * chunkMedium_fromPointer(void * pointer) {
-    return chunkMedium_fromChunk(chunk_fromPointer(pointer));
-}
-
-static inline struct chunk * chunkMedium_toChunk(struct chunkMedium * self) {
-    return (void *) self + sizeof(size_t);
+    return pointer - CHUNK_MEDIUM_OVERHEAD;
 }
 
 static inline void * chunkMedium_toPointer(struct chunkMedium * self) {
-    return chunk_toPointer(chunkMedium_toChunk(self));
+    return (void *) self + CHUNK_MEDIUM_OVERHEAD;
 }
 
 #endif /* chunk_medium_h */
