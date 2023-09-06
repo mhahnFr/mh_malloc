@@ -4,7 +4,7 @@
 
 #include "../chunk.h"
 
-void * zone_allocateLarge(struct zone * self, size_t size) {
+void * zoneLarge_allocate(struct zone * self, size_t size) {
     struct pageHeader * page = page_allocateMin(size + sizeof(struct pageHeader) + CHUNK_OVERHEAD);
     
     if (page == NULL) {
@@ -22,7 +22,7 @@ void * zone_allocateLarge(struct zone * self, size_t size) {
     return chunk_toPointer(chunk);
 }
 
-bool zone_deallocateLarge(struct zone * self, void * pointer) {
+bool zoneLarge_deallocate(struct zone * self, void * pointer) {
     struct chunk * chunk = chunk_fromPointer(pointer);
     struct pageHeader * page = (void *) chunk - sizeof(struct pageHeader);
    

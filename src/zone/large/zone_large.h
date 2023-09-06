@@ -3,8 +3,8 @@
 
 #include "../zone.h"
 
-void * zone_allocateLarge(struct zone * self, size_t bytes);
-bool zone_deallocateLarge(struct zone * self, void * pointer);
+void * zoneLarge_allocate(struct zone * self, size_t bytes);
+bool zoneLarge_deallocate(struct zone * self, void * pointer);
 
 size_t zoneLarge_getAllocationSize(void * pointer);
 bool zoneLarge_enlarge(void * pointer, size_t newSize);
