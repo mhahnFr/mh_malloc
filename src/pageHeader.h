@@ -14,7 +14,10 @@ struct pageHeader {
     size_t size;
     
     union {
-        size_t allocCount;
+        struct {
+            size_t allocCount;
+            void * chunks;
+        } counted;
         void * slices;
     } pageLocal;
 };
