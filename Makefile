@@ -40,7 +40,7 @@ $(TEST_CLEAN): $(TEST_OBJS)
 	$(CC) $(TEST_OBJS) -o $@
 
 $(TEST_NAME): $(NAME) $(TEST_OBJS)
-	$(CC) $(TEST_LDFLAGS) $(TEST_OBJS) $(NAME) -o $(TEST_NAME)
+	$(CC) $(TEST_LDFLAGS) $(TEST_OBJS) $(NAME) -o $@
 
 $(NAME): $(OBJS)
 	$(CC) $(LDFLAGS) -o $(NAME) $(OBJS)
@@ -50,10 +50,14 @@ $(NAME): $(OBJS)
 	
 clean:
 	- $(RM) $(OBJS)
+	- $(RM) $(TEST_OBJS)
 	- $(RM) $(DEPS)
+	- $(RM) $(TEST_DEPS)
 	
 fclean: clean
 	- $(RM) $(NAME)
+	- $(RM) $(TEST_CLEAN)
+	- $(RM) $(TEST_NAME)
 	
 re: fclean
 	$(MAKE) all
