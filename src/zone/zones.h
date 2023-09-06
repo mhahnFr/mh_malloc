@@ -29,7 +29,7 @@ static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size
     
     if (size <= CHUNK_MINIMUM_SIZE) {
         return &self->small;
-    } else if (size <= zone_mediumMaximumSize(self->pageSize.size)) {
+    } else if (size <= zoneMedium_maximumSize(self->pageSize.size)) {
         return &self->medium;
     }
     return &self->large;

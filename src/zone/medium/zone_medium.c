@@ -5,7 +5,7 @@
 
 #include "chunk_medium.h"
 
-static inline struct pageHeader * zone_mediumFindPageFor(struct zone * self, void * pointer) {
+static inline struct pageHeader * zoneMedium_findPageFor(struct zone * self, void * pointer) {
     struct pageHeader * it;
     for (it = self->pages; it != NULL && !page_hasPointer(it, pointer); it = it->next);
     return it;
@@ -75,7 +75,7 @@ static inline struct chunkMedium * slicer_allocate(struct pageHeader * page, siz
     return slice;
 }
 
-void * zone_allocateMedium(struct zone * self, size_t size) {
+void * zoneMedium_allocate(struct zone * self, size_t size) {
     for (struct pageHeader * it = self->pages; it != NULL; it = it->next) {
         struct chunkMedium * chunk = slicer_allocate(it, size);
         if (chunk != NULL) {
@@ -128,8 +128,8 @@ static inline bool slicer_empty(struct pageHeader * page) {
     return freeBytes + sizeof(struct pageHeader) == page->size;
 }
 
-bool zone_deallocateMedium(struct zone * self, void * pointer) {
-    struct pageHeader * page = zone_mediumFindPageFor(self, pointer);
+bool zoneMedium_deallocate(struct zone * self, void * pointer) {
+    struct pageHeader * page = zoneMedium_findPageFor(self, pointer);
     if (page == NULL) {
         return false;
     }
@@ -146,7 +146,7 @@ bool zone_deallocateMedium(struct zone * self, void * pointer) {
     return true;
 }
 
-size_t zone_mediumMaximumSize(const size_t pageSize) {
+size_t zoneMedium_maximumSize(const size_t pageSize) {
     return pageSize - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD;
 }
 

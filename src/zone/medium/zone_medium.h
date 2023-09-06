@@ -3,12 +3,12 @@
 
 #include "../zone.h"
 
-void * zone_allocateMedium(struct zone * self, size_t bytes);
-bool zone_deallocateMedium(struct zone * self, void * pointer);
+void * zoneMedium_allocate(struct zone * self, size_t bytes);
+bool zoneMedium_deallocate(struct zone * self, void * pointer);
 
 bool zoneMedium_enlarge(struct zone * self, void * pointer, size_t newSize);
 size_t zoneMedium_getAllocationSize(void * pointer);
 
-size_t zone_mediumMaximumSize(const size_t pageSize);
+size_t zoneMedium_maximumSize(const size_t pageSize);
 
 #endif /* zone_medium_h */
