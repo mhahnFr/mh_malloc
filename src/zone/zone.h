@@ -30,4 +30,7 @@ static inline struct pageHeader * zone_hasPointer(struct zone * self, void * poi
     return page;
 }
 
+bool   zone_enlargeAllocation(struct zone * self, void * pointer, size_t newSize);
+size_t zone_getAllocationSize(struct zone * self, void * pointer);
+
 #endif /* zone_h */

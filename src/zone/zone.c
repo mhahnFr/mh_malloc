@@ -23,3 +23,23 @@ bool zone_deallocate(struct zone * self, void * pointer) {
         default: return false;
     }
 }
+
+bool zone_enlargeAllocation(struct zone * self, void * pointer, size_t newSize) {
+    switch (self->type) {
+        case ZONE_SMALL:  return zoneSmall_enlarge(self, pointer, newSize);
+        case ZONE_MEDIUM: return zoneMedium_enlarge(self, pointer, newSize);
+        case ZONE_LARGE:  return zoneLarge_enlarge(self, pointer, newSize);
+            
+        default: return false;
+    }
+}
+
+size_t zone_getAllocationSize(struct zone * self, void * pointer) {
+    switch (self->type) {
+        case ZONE_SMALL:  return zoneSmall_getAllocationSize(pointer);
+        case ZONE_MEDIUM: return zoneMedium_getAllocationSize(pointer);
+        case ZONE_LARGE:  return zoneLarge_getAllocationSize(pointer);
+            
+        default: return 0;
+    }
+}

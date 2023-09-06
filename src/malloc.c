@@ -41,15 +41,6 @@ void * calloc(size_t count, size_t size) {
     return chunk;
 }
 
-void * realloc(void * ptr, size_t newSize) {
-    // TODO: Implement!
-    
-    (void) ptr;
-    (void) newSize;
-    
-    __builtin_abort();
-}
-
 void free(void * ptr) {
     if (ptr == NULL) {
         return;
@@ -59,4 +50,29 @@ void free(void * ptr) {
     if (zone == NULL || !zone_deallocate(zone, ptr)) {
         malloc_error("Pointer being freed was not allocated!");
     }
+}
+
+void * realloc(void * ptr, size_t newSize) {
+    if (ptr == NULL) {
+        return malloc(newSize);
+    }
+    if (newSize == 0) {
+        free(ptr);
+        return malloc(0);
+    }
+    
+    struct zone * zone = zones_getZoneByPointer(&zones, ptr);
+    if (zone == NULL) {
+        malloc_error("Pointer to be resized invalid!");
+    }
+    if (zone_enlargeAllocation(zone, ptr, newSize)) {
+        return ptr;
+    }
+    void * newAlloc = malloc(newSize);
+    if (newAlloc == NULL) {
+        return NULL;
+    }
+    memcpy(newAlloc, ptr, zone_getAllocationSize(zone, ptr));
+    free(ptr);
+    return newAlloc;
 }
