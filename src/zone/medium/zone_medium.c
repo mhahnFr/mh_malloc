@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <string.h>
 
 #include "zone_medium.h"
 
@@ -95,6 +96,19 @@ static inline void slicer_deallocate(struct pageHeader * page, struct chunkMediu
     for (struct chunkMedium * it = page->pageLocal.slices; it != NULL; it = it->next) {
         if ((void *) it + CHUNK_MEDIUM_OVERHEAD + it->size == (void *) chunk) {
             it->size += CHUNK_MEDIUM_OVERHEAD + chunk->size;
+            return;
+        } else if ((void *) chunk + CHUNK_MEDIUM_OVERHEAD + chunk->size == (void *) it) {
+            it->size += CHUNK_MEDIUM_OVERHEAD + chunk->size;
+            if (it->previous != NULL) {
+                it->previous->next = chunk;
+            }
+            if (it->next != NULL) {
+                it->next->previous = chunk;
+            }
+            if (page->pageLocal.slices == it) {
+                page->pageLocal.slices = chunk;
+            }
+            memmove(chunk, it, sizeof(struct chunkMedium));
             return;
         }
     }
