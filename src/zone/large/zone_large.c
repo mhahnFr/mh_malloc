@@ -39,5 +39,5 @@ bool zoneLarge_enlarge(void * pointer, size_t newSize) {
 }
 
 size_t zoneLarge_getAllocationSize(void * pointer) {
-    return ((struct pageHeader *) (void *) chunk_fromPointer(pointer) - sizeof(struct pageHeader))->allocCount;
+    return chunk_fromPointer(pointer)->page->allocCount;
 }
