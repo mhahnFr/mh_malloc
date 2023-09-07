@@ -17,15 +17,18 @@ TEST_CLEAN = test_clean.exe
 
 ifeq ($(shell uname -s),Linux)
 	TEST_LDFLAGS = -Wl,-rpath=.
+	TIME_SHELL = /bin/bash
 else
 	TEST_LDFLAGS =
+	TIME_SHELL = /bin/sh
 endif
 
 all: $(NAME)
 
 run: $(TEST_NAME)
 	./$(TEST_NAME) 0 1 2
-	
+
+bench: SHELL := $(TIME_SHELL)
 bench: $(TEST_NAME) $(TEST_CLEAN)
 	@echo "\033[32mBenchmarking small allocations (First: Yours, second: STD)\033[0m"
 	@for i in `seq 1 10`; do time ./$(TEST_NAME) 0; echo; time ./$(TEST_CLEAN) 0; echo; echo "\033[1m-----\033[0m"; done
