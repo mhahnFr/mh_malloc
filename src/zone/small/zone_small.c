@@ -11,25 +11,25 @@ static inline struct pageHeader * zoneSmall_findPageFor(struct zone * self, void
 }
 
 static inline struct chunk * zoneSmall_fromPage(struct pageHeader * page) {
-    if (page->pageLocal.counted.closestAvailable + sizeof(struct chunk) > (void *) page + page->size) {
+    if (page->closestAvailable + sizeof(struct chunk) > (void *) page + page->size) {
         return NULL;
     }
-    struct chunk * toReturn = page->pageLocal.counted.closestAvailable;
-    page->pageLocal.counted.closestAvailable += sizeof(struct chunk);
-    page->pageLocal.counted.allocCount++;
+    struct chunk * toReturn = page->closestAvailable;
+    page->closestAvailable += sizeof(struct chunk);
+    page->allocCount++;
     return toReturn;
 }
 
 static inline struct chunk * zoneSmall_findInPage(struct pageHeader * page) {
-    if (page->pageLocal.counted.chunks == NULL) {
+    if (page->slices == NULL) {
         return zoneSmall_fromPage(page);
     }
-    struct chunk * toReturn = page->pageLocal.counted.chunks;
-    page->pageLocal.counted.chunks = toReturn->next;
-    if (page->pageLocal.counted.chunks != NULL) {
-        ((struct chunk *) page->pageLocal.counted.chunks)->previous = NULL;
+    struct chunk * toReturn = page->slices;
+    page->slices = toReturn->next;
+    if (page->slices != NULL) {
+        ((struct chunk *) page->slices)->previous = NULL;
     }
-    page->pageLocal.counted.allocCount++;
+    page->allocCount++;
     return toReturn;
 }
 
@@ -53,9 +53,9 @@ void * zoneSmall_allocate(struct zone * self) {
             return NULL;
         }
         page_add(&self->pages, page);
-        page->pageLocal.counted.allocCount = 0;
-        page->pageLocal.counted.chunks = NULL;
-        page->pageLocal.counted.closestAvailable = (void *) page + sizeof(struct pageHeader);
+        page->allocCount = 0;
+        page->slices = NULL;
+        page->closestAvailable = (void *) page + sizeof(struct pageHeader);
 
         chunk = zoneSmall_findInPage(page);
     }
@@ -75,14 +75,14 @@ bool zoneSmall_deallocate(struct zone * self, void * pointer) {
     if (page == NULL) {
         return false;
     }
-    chunk->next = page->pageLocal.counted.chunks;
-    if (page->pageLocal.counted.chunks != NULL) {
-        ((struct chunk *) page->pageLocal.counted.chunks)->previous = chunk;
+    chunk->next = page->slices;
+    if (page->slices != NULL) {
+        ((struct chunk *) page->slices)->previous = chunk;
     }
     chunk->previous = NULL;
     chunk->flag |= CHUNK_FREED;
     
-    if (--(page->pageLocal.counted.allocCount) == 0) {
+    if (--(page->allocCount) == 0) {
         page_remove(&self->pages, page);
         page_deallocate(page);
     }

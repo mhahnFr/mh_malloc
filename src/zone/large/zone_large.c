@@ -17,7 +17,7 @@ void * zoneLarge_allocate(struct zone * self, size_t size) {
     chunk->flag   = 0;
     chunk->flag  |= CHUNK_LARGE;
     
-    page->pageLocal.counted.allocCount = size;
+    page->allocCount = size;
     
     return chunk_toPointer(chunk);
 }
@@ -39,5 +39,5 @@ bool zoneLarge_enlarge(void * pointer, size_t newSize) {
 }
 
 size_t zoneLarge_getAllocationSize(void * pointer) {
-    return ((struct pageHeader *) (void *) chunk_fromPointer(pointer) - sizeof(struct pageHeader))->pageLocal.counted.allocCount;
+    return ((struct pageHeader *) (void *) chunk_fromPointer(pointer) - sizeof(struct pageHeader))->allocCount;
 }
