@@ -38,7 +38,9 @@ static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size
 static inline struct zone * zones_getZoneByPointer(struct zones * self, void * pointer) {
     struct chunk * chunk = chunk_fromPointer(pointer);
     
-    // FIXME: Already freed ones?
+    if (chunk->page == NULL) {
+        return NULL;
+    }
     return chunk->page->zone;
 }
 
