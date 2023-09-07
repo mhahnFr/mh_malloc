@@ -1,10 +1,10 @@
 #ifndef chunk_h
 #define chunk_h
 
-typedef unsigned char chunk_flagType;
+#include "../pageHeader.h"
 
 struct chunk {
-    chunk_flagType flag;
+    struct pageHeader * page;
     
     struct chunk * next;
     struct chunk * previous;
@@ -21,10 +21,5 @@ static inline struct chunk * chunk_fromPointer(void * pointer) {
 static inline void * chunk_toPointer(struct chunk * self) {
     return (void *) self + CHUNK_OVERHEAD;
 }
-
-#define CHUNK_FREED  0b00000001
-#define CHUNK_SMALL  0b00000010
-#define CHUNK_MEDIUM 0b00000100
-#define CHUNK_LARGE  0b00001000
 
 #endif /* chunk_h */

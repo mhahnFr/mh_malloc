@@ -1,12 +1,12 @@
 #ifndef chunk_medium_h
 #define chunk_medium_h
 
-#include "../chunk.h"
+#include "../../pageHeader.h"
 
 struct chunkMedium {
     size_t size;
     
-    chunk_flagType flag;
+    struct pageHeader * page;
     
     struct chunkMedium * next;
     struct chunkMedium * previous;
