@@ -10,9 +10,9 @@
 static struct zones zones = {
     { .inited = false },
     
-    { ZONE_SMALL,  NULL, NULL },
-    { ZONE_MEDIUM, NULL, NULL },
-    { ZONE_LARGE,  NULL, NULL }
+    { ZONE_SMALL,  NULL },
+    { ZONE_MEDIUM, NULL },
+    { ZONE_LARGE,  NULL }
 };
 
 void * malloc(size_t size) {

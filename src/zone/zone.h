@@ -15,8 +15,6 @@ enum zoneType {
 struct zone {
     enum zoneType type;
     
-    void * freeChunks;
-    
     struct pageHeader * pages;
 };
 
