@@ -28,13 +28,13 @@ run: $(TEST_NAME)
 	
 bench: $(TEST_NAME) $(TEST_CLEAN)
 	@echo "\033[32mBenchmarking small allocations (First: Yours, second: STD)\033[0m"
-	for i in `seq 1 10`; do time ./$(TEST_NAME) 0; echo; time ./$(TEST_CLEAN) 0; echo; echo "\033[1m-----\033[0m"; done
+	@for i in `seq 1 10`; do time ./$(TEST_NAME) 0; echo; time ./$(TEST_CLEAN) 0; echo; echo "\033[1m-----\033[0m"; done
 	@echo
 	@echo "\033[32mBenchmarking medium allocations (First: Yours, second: STD)\033[0m"
-	for i in `seq 1 10`; do time ./$(TEST_NAME) 1; echo; time ./$(TEST_CLEAN) 1; echo; echo "\033[1m-----\033[0m"; done
+	@for i in `seq 1 10`; do time ./$(TEST_NAME) 1; echo; time ./$(TEST_CLEAN) 1; echo; echo "\033[1m-----\033[0m"; done
 	@echo
-	@echo "\033[32mBenchmarking large allocations (First: Yours, second STD)\033[0m"
-	for i in `seq 1 10`; do time ./$(TEST_NAME) 2; echo; time ./$(TEST_CLEAN) 2; echo; echo "\033[1m-----\033[0m"; done
+	@echo "\033[32mBenchmarking large allocations (First: Yours, second: STD)\033[0m"
+	@for i in `seq 1 10`; do time ./$(TEST_NAME) 2; echo; time ./$(TEST_CLEAN) 2; echo; echo "\033[1m-----\033[0m"; done
 
 $(TEST_CLEAN): $(TEST_OBJS)
 	$(CC) $(TEST_OBJS) -o $@
