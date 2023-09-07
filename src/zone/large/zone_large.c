@@ -14,10 +14,10 @@ void * zoneLarge_allocate(struct zone * self, size_t size) {
     page_add(&self->pages, page);
     
     struct chunk * chunk = (void *) page + sizeof(struct pageHeader);
-    chunk->flag   = 0;
-    chunk->flag  |= CHUNK_LARGE;
+    chunk->page = page;
     
     page->allocCount = size;
+    page->zone = self;
     
     return chunk_toPointer(chunk);
 }

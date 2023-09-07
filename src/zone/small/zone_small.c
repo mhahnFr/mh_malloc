@@ -4,12 +4,6 @@
 
 #include "../chunk.h"
 
-static inline struct pageHeader * zoneSmall_findPageFor(struct zone * self, void * pointer) {
-    struct pageHeader * it;
-    for (it = self->pages; it != NULL && !page_hasPointer(it, pointer); it = it->next);
-    return it;
-}
-
 static inline struct chunk * zoneSmall_fromPage(struct pageHeader * page) {
     if (page->closestAvailable + sizeof(struct chunk) > (void *) page + page->size) {
         return NULL;
@@ -17,6 +11,7 @@ static inline struct chunk * zoneSmall_fromPage(struct pageHeader * page) {
     struct chunk * toReturn = page->closestAvailable;
     page->closestAvailable += sizeof(struct chunk);
     page->allocCount++;
+    toReturn->page = page;
     return toReturn;
 }
 
@@ -30,6 +25,7 @@ static inline struct chunk * zoneSmall_findInPage(struct pageHeader * page) {
         ((struct chunk *) page->slices)->previous = NULL;
     }
     page->allocCount++;
+    toReturn->page = page;
     return toReturn;
 }
 
@@ -56,31 +52,26 @@ void * zoneSmall_allocate(struct zone * self) {
         page->allocCount = 0;
         page->slices = NULL;
         page->closestAvailable = (void *) page + sizeof(struct pageHeader);
+        page->zone = self;
 
         chunk = zoneSmall_findInPage(page);
     }
-    chunk->flag = 0;
-    chunk->flag |= CHUNK_SMALL;
     return chunk_toPointer(chunk);
 }
 
 bool zoneSmall_deallocate(struct zone * self, void * pointer) {
     struct chunk * chunk = chunk_fromPointer(pointer);
     
-    if ((chunk->flag & CHUNK_FREED) != 0) {
-        return false;
-    }
-    
-    struct pageHeader * page = zoneSmall_findPageFor(self, pointer);
+    struct pageHeader * page = chunk->page;
     if (page == NULL) {
         return false;
     }
+    chunk->page = NULL;
     chunk->next = page->slices;
     if (page->slices != NULL) {
         ((struct chunk *) page->slices)->previous = chunk;
     }
     chunk->previous = NULL;
-    chunk->flag |= CHUNK_FREED;
     
     if (--(page->allocCount) == 0) {
         page_remove(&self->pages, page);
