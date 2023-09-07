@@ -21,7 +21,7 @@ static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * pa
         toReturn->size = page->size - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD;
         toReturn->flag = 0;
         toReturn->flag |= CHUNK_MEDIUM;
-        page->pageLocal.slices = NULL;
+        page->slices = NULL;
     } else {
         toReturn->size = size;
         struct chunkMedium * tmp = (void *) page + sizeof(struct pageHeader);
@@ -30,15 +30,16 @@ static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * pa
         tmp->size = remainder;
         tmp->flag = 0;
         tmp->flag |= CHUNK_FREED;
-        page->pageLocal.slices = tmp;
+        page->slices = tmp;
     }
+    page->allocCount++;
     return toReturn;
 }
 
 static inline struct chunkMedium * slicer_allocate(struct pageHeader * page, size_t size) {
     struct chunkMedium * biggest  = NULL;
     struct chunkMedium * smallest = NULL;
-    for (struct chunkMedium * it = page->pageLocal.slices; it != NULL; it = it->next) {
+    for (struct chunkMedium * it = page->slices; it != NULL; it = it->next) {
         if (it->size >= size) {
             if (biggest == NULL || it->size > biggest->size) {
                 biggest = it;
@@ -51,6 +52,7 @@ static inline struct chunkMedium * slicer_allocate(struct pageHeader * page, siz
     if (smallest == NULL) {
         return NULL;
     }
+    page->allocCount++;
     if (smallest->size - size <= sizeof(struct chunkMedium)) {
         if (smallest->previous != NULL) {
             smallest->previous->next = smallest->next;
@@ -58,8 +60,8 @@ static inline struct chunkMedium * slicer_allocate(struct pageHeader * page, siz
         if (smallest->next != NULL) {
             smallest->next->previous = smallest->previous;
         }
-        if (page->pageLocal.slices == smallest) {
-            page->pageLocal.slices = smallest->next;
+        if (page->slices == smallest) {
+            page->slices = smallest->next;
         }
         smallest->flag = 0;
         smallest->flag |= CHUNK_MEDIUM;
@@ -88,12 +90,14 @@ void * zoneMedium_allocate(struct zone * self, size_t size) {
         return NULL;
     }
     page_add(&self->pages, page);
-    page->pageLocal.slices = NULL;
+    page->slices = NULL;
+    page->allocCount = 0;
     return chunkMedium_toPointer(slicer_firstAllocation(page, size));
 }
 
 static inline void slicer_deallocate(struct pageHeader * page, struct chunkMedium * chunk) {
-    for (struct chunkMedium * it = page->pageLocal.slices; it != NULL; it = it->next) {
+    page->allocCount--;
+    for (struct chunkMedium * it = page->slices; it != NULL; it = it->next) {
         if ((void *) it + CHUNK_MEDIUM_OVERHEAD + it->size == (void *) chunk) {
             it->size += CHUNK_MEDIUM_OVERHEAD + chunk->size;
             return;
@@ -105,27 +109,23 @@ static inline void slicer_deallocate(struct pageHeader * page, struct chunkMediu
             if (it->next != NULL) {
                 it->next->previous = chunk;
             }
-            if (page->pageLocal.slices == it) {
-                page->pageLocal.slices = chunk;
+            if (page->slices == it) {
+                page->slices = chunk;
             }
             memmove(chunk, it, sizeof(struct chunkMedium));
             return;
         }
     }
     chunk->previous = NULL;
-    chunk->next = page->pageLocal.slices;
-    if (page->pageLocal.slices != NULL) {
-        ((struct chunkMedium *) page->pageLocal.slices)->previous = chunk;
+    chunk->next = page->slices;
+    if (page->slices != NULL) {
+        ((struct chunkMedium *) page->slices)->previous = chunk;
     }
-    page->pageLocal.slices = chunk;
+    page->slices = chunk;
 }
 
 static inline bool slicer_empty(struct pageHeader * page) {
-    size_t freeBytes = 0;
-    for (struct chunkMedium * it = page->pageLocal.slices; it != NULL; it = it->next) {
-        freeBytes += it->size + CHUNK_MEDIUM_OVERHEAD;
-    }
-    return freeBytes + sizeof(struct pageHeader) == page->size;
+    return page->allocCount == 0;
 }
 
 bool zoneMedium_deallocate(struct zone * self, void * pointer) {
