@@ -17,6 +17,7 @@ struct pageHeader {
         struct {
             size_t allocCount;
             void * chunks;
+            void * closestAvailable;
         } counted;
         void * slices;
     } pageLocal;

@@ -10,9 +10,19 @@ static inline struct pageHeader * zoneSmall_findPageFor(struct zone * self, void
     return it;
 }
 
+static inline struct chunk * zoneSmall_fromPage(struct pageHeader * page) {
+    if (page->pageLocal.counted.closestAvailable + sizeof(struct chunk) > (void *) page + page->size) {
+        return NULL;
+    }
+    struct chunk * toReturn = page->pageLocal.counted.closestAvailable;
+    page->pageLocal.counted.closestAvailable += sizeof(struct chunk);
+    page->pageLocal.counted.allocCount++;
+    return toReturn;
+}
+
 static inline struct chunk * zoneSmall_findInPage(struct pageHeader * page) {
     if (page->pageLocal.counted.chunks == NULL) {
-        return NULL;
+        return zoneSmall_fromPage(page);
     }
     struct chunk * toReturn = page->pageLocal.counted.chunks;
     page->pageLocal.counted.chunks = toReturn->next;
@@ -33,18 +43,6 @@ static inline struct chunk * zoneSmall_findFreeChunk(struct zone * self) {
     return NULL;
 }
 
-static inline void zoneSmall_addChunks(struct pageHeader * page) {
-    const void * end = (void *) page + page->size;
-    for (struct chunk * it = (void *) page + sizeof(struct pageHeader); (void *) it + sizeof(struct chunk) < end; ++it) {
-        it->next = page->pageLocal.counted.chunks;
-        if (page->pageLocal.counted.chunks != NULL) {
-            ((struct chunk *) page->pageLocal.counted.chunks)->previous = it;
-        }
-        it->previous = NULL;
-        page->pageLocal.counted.chunks = it;
-    }
-}
-
 void * zoneSmall_allocate(struct zone * self) {
     struct chunk * chunk = zoneSmall_findFreeChunk(self);
     
@@ -56,8 +54,9 @@ void * zoneSmall_allocate(struct zone * self) {
         }
         page_add(&self->pages, page);
         page->pageLocal.counted.allocCount = 0;
+        page->pageLocal.counted.chunks = NULL;
+        page->pageLocal.counted.closestAvailable = (void *) page + sizeof(struct pageHeader);
 
-        zoneSmall_addChunks(page);
         chunk = zoneSmall_findInPage(page);
     }
     chunk->flag = 0;
