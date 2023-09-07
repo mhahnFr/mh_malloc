@@ -38,14 +38,8 @@ static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size
 static inline struct zone * zones_getZoneByPointer(struct zones * self, void * pointer) {
     struct chunk * chunk = chunk_fromPointer(pointer);
     
-    if ((chunk->flag & CHUNK_SMALL) != 0) {
-        return &self->small;
-    } else if ((chunk->flag & CHUNK_MEDIUM) != 0) {
-        return &self->medium;
-    } else if ((chunk->flag & CHUNK_LARGE) != 0) {
-        return &self->large;
-    }
-    return NULL;
+    // FIXME: Already freed ones?
+    return chunk->page->zone;
 }
 
 #endif /* zones_h */

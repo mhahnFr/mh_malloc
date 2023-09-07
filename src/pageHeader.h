@@ -16,6 +16,7 @@ struct pageHeader {
     
     void * slices;
     void * closestAvailable;
+    void * zone;
 };
 
 size_t page_getPageSize(void);
