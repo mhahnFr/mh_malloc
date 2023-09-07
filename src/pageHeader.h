@@ -44,11 +44,6 @@ static inline void page_remove(struct pageHeader ** list, struct pageHeader * se
     }
 }
 
-static inline bool page_hasPointer(struct pageHeader * self, void * pointer) {
-    return pointer >= ((void *) self) + sizeof(struct pageHeader)
-        && pointer <  ((void *) self) + self->size;
-}
-
 void page_deallocate(struct pageHeader * self);
 
 #endif /* pageHeader_h */
