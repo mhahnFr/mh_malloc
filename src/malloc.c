@@ -47,7 +47,7 @@ void free(void * ptr) {
         return;
     }
     
-    struct zone * zone = zones_getZoneByPointer(&zones, ptr);
+    struct zone * zone = zones_getZoneByPointer(ptr);
     if (zone == NULL || !zone_deallocate(zone, ptr)) {
         malloc_error("Pointer being freed was not allocated!");
     }
@@ -62,7 +62,7 @@ void * realloc(void * ptr, size_t newSize) {
         return malloc(0);
     }
     
-    struct zone * zone = zones_getZoneByPointer(&zones, ptr);
+    struct zone * zone = zones_getZoneByPointer(ptr);
     if (zone == NULL) {
         malloc_error("Pointer to be resized invalid!");
     }

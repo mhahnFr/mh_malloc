@@ -35,7 +35,7 @@ static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size
     return &self->large;
 }
 
-static inline struct zone * zones_getZoneByPointer(struct zones * self, void * pointer) {
+static inline struct zone * zones_getZoneByPointer(void * pointer) {
     struct chunk * chunk = chunk_fromPointer(pointer);
     
     if (chunk->page == NULL) {
