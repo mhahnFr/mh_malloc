@@ -10,9 +10,9 @@ struct chunk {
     struct chunk * previous;
 };
 
-#define CHUNK_OVERHEAD (sizeof(struct chunk) - 2 * sizeof(void *))
+static const size_t CHUNK_OVERHEAD = sizeof(struct chunk) - 2 * sizeof(struct chunk *);
 
-#define CHUNK_MINIMUM_SIZE (sizeof(void *) * 2)
+static const size_t CHUNK_MINIMUM_SIZE = sizeof(struct chunk *) * 2;
 
 static inline struct chunk * chunk_fromPointer(void * pointer) {
     return pointer - CHUNK_OVERHEAD;
