@@ -8,11 +8,11 @@
 #include "zone/zones.h"
 
 static struct zones zones = {
-    { .inited = false },
+    false,
     
-    { ZONE_SMALL,  NULL },
-    { ZONE_MEDIUM, NULL },
-    { ZONE_LARGE,  NULL }
+    { ZONE_SMALL,  0, NULL },
+    { ZONE_MEDIUM, 0, NULL },
+    { ZONE_LARGE,  0, NULL }
 };
 
 void * malloc(size_t size) {

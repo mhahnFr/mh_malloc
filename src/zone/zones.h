@@ -11,10 +11,7 @@
 #include "../pageHeader.h"
 
 struct zones {
-    struct {
-        bool inited;
-        size_t size;
-    } pageSize;
+    bool inited;
     
     struct zone small;
     struct zone medium;
@@ -22,14 +19,17 @@ struct zones {
 };
 
 static inline struct zone * zones_getZoneBySize(struct zones * self, size_t size) {
-    if (!self->pageSize.inited) {
-        self->pageSize.size = PAGE_SIZE;
-        self->pageSize.inited = true;
+    if (!self->inited) {
+        const size_t pageSize = page_getPageSize() * PAGE_FACTOR;
+        self->small.pageSize = pageSize;
+        self->medium.pageSize = pageSize;
+        self->large.pageSize = pageSize;
+        self->inited = true;
     }
     
     if (size <= CHUNK_MINIMUM_SIZE) {
         return &self->small;
-    } else if (size <= zoneMedium_maximumSize(self->pageSize.size)) {
+    } else if (size <= zoneMedium_maximumSize(&self->medium)) {
         return &self->medium;
     }
     return &self->large;

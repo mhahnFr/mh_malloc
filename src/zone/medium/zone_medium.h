@@ -9,6 +9,6 @@ bool zoneMedium_deallocate(struct zone * self, void * pointer);
 bool zoneMedium_enlarge(struct zone * self, void * pointer, size_t newSize);
 size_t zoneMedium_getAllocationSize(void * pointer);
 
-size_t zoneMedium_maximumSize(const size_t pageSize);
+size_t zoneMedium_maximumSize(struct zone * self);
 
 #endif /* zone_medium_h */

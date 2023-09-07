@@ -15,6 +15,8 @@ enum zoneType {
 struct zone {
     enum zoneType type;
     
+    size_t pageSize;
+    
     struct pageHeader * pages;
 };
 
