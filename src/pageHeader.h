@@ -5,7 +5,6 @@
 #include <stddef.h>
 
 #define PAGE_FACTOR 8
-#define PAGE_SIZE (page_getPageSize() * (PAGE_FACTOR))
 
 struct pageHeader {
     struct pageHeader * previous;
@@ -21,11 +20,7 @@ struct pageHeader {
 
 size_t page_getPageSize(void);
 
-struct pageHeader * page_allocateMin(size_t minimum);
-
-static inline struct pageHeader * page_allocate(void) {
-    return page_allocateMin(PAGE_SIZE);
-}
+struct pageHeader * page_allocateMin(size_t minimum, size_t pageSize);
 
 static inline void page_add(struct pageHeader ** head, struct pageHeader * element) {
     element->previous = NULL;

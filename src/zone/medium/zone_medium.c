@@ -73,7 +73,7 @@ void * zoneMedium_allocate(struct zone * self, size_t size) {
             return chunkMedium_toPointer(chunk);
         }
     }
-    struct pageHeader * page = page_allocate();
+    struct pageHeader * page = page_allocateMin(self->pageSize * PAGE_FACTOR, self->pageSize);
     if (page == NULL) {
         errno = ENOMEM;
         return NULL;

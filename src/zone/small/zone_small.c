@@ -43,7 +43,7 @@ void * zoneSmall_allocate(struct zone * self) {
     struct chunk * chunk = zoneSmall_findFreeChunk(self);
     
     if (chunk == NULL) {
-        struct pageHeader * page = page_allocate();
+        struct pageHeader * page = page_allocateMin(self->pageSize * PAGE_FACTOR, self->pageSize);
         if (page == NULL) {
             errno = ENOMEM;
             return NULL;

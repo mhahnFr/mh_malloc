@@ -5,10 +5,9 @@
 
 #include "warn.h"
 
-struct pageHeader * page_allocateMin(size_t minimum) {
-    const size_t pageSize = page_getPageSize();
-    const size_t size     = minimum % pageSize == 0 ? minimum
-                                                    : (minimum / pageSize + 1) * pageSize;
+struct pageHeader * page_allocateMin(size_t minimum, size_t pageSize) {
+    const size_t size = minimum % pageSize == 0 ? minimum
+                                                : (minimum / pageSize + 1) * pageSize;
     
     struct pageHeader * toReturn = mmap(NULL,
                           /*    len: */ size,

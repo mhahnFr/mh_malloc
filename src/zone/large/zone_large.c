@@ -5,7 +5,7 @@
 #include "../chunk.h"
 
 void * zoneLarge_allocate(struct zone * self, size_t size) {
-    struct pageHeader * page = page_allocateMin(size + sizeof(struct pageHeader) + CHUNK_OVERHEAD);
+    struct pageHeader * page = page_allocateMin(size + sizeof(struct pageHeader) + CHUNK_OVERHEAD, self->pageSize);
     
     if (page == NULL) {
         errno = ENOMEM;
