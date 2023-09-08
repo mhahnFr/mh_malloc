@@ -34,8 +34,12 @@ static inline void testMiddle(void) {
         
         allocs[i] = malloc(allocSize);
         __builtin_memset(allocs[i], alphabet[i % len], allocSize);
-        free(allocs[i]);
-        allocs[i] = malloc(ALLOC_SIZE1 - i);
+        if (i % 2 == 0) {
+            free(allocs[i]);
+            allocs[i] = malloc(ALLOC_SIZE1 - i);
+        } else {
+            allocs[i] = realloc(allocs[i], ALLOC_SIZE1 - i);
+        }
     }
 
     {
@@ -54,8 +58,12 @@ static inline void testMiddle(void) {
         const size_t allocSize = cap(ALLOC_SIZE * (i % 10 + 1), MIDDLE_CAP);
         allocs2[i] = malloc(allocSize);
         __builtin_memset(allocs2[i], alphabet[i % len], allocSize);
-        free(allocs2[i]);
-        allocs2[i] = malloc(cap(ALLOC_SIZE * (i == 0 ? 1 : i), MIDDLE_CAP));
+        if (i % 2 == 0) {
+            free(allocs2[i]);
+            allocs2[i] = malloc(cap(ALLOC_SIZE * (i == 0 ? 1 : i), MIDDLE_CAP));
+        } else {
+            allocs2[i] = realloc(allocs2[i], cap(ALLOC_SIZE * (i == 0 ? 1 : i), MIDDLE_CAP));
+        }
     }
     {
         for (size_t i = 0; i < 5000; ++i) {
