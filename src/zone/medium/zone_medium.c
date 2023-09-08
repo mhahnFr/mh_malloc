@@ -137,7 +137,7 @@ size_t zoneMedium_maximumSize(struct zone * self) {
     return self->pageSize - sizeof(struct pageHeader) - CHUNK_MEDIUM_OVERHEAD;
 }
 
-bool zoneMedium_enlarge(struct zone * self, void * pointer, size_t newSize) {
+bool zoneMedium_enlarge(void * pointer, size_t newSize) {
     struct chunkMedium * chunk = chunkMedium_fromPointer(pointer);
     if (chunk->size >= newSize) {
         return true;
