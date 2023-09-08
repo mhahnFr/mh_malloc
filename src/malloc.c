@@ -73,7 +73,8 @@ void * realloc(void * ptr, size_t newSize) {
     if (newAlloc == NULL) {
         return NULL;
     }
-    memcpy(newAlloc, ptr, zone_getAllocationSize(zone, ptr));
+    const size_t oldSize = zone_getAllocationSize(zone, ptr);
+    memcpy(newAlloc, ptr, newSize > oldSize ? oldSize : newSize);
     free(ptr);
     return newAlloc;
 }
