@@ -138,9 +138,40 @@ size_t zoneMedium_maximumSize(struct zone * self) {
 }
 
 bool zoneMedium_enlarge(struct zone * self, void * pointer, size_t newSize) {
-    // TODO: Implement
-    
-    return false;
+    struct chunkMedium * chunk = chunkMedium_fromPointer(pointer);
+    if (chunk->size >= newSize) {
+        return true;
+    }
+
+    struct chunkMedium * it;
+    for (it = chunk->page->slices; it != NULL && it != pointer + chunk->size; it = it->next);
+    if (it == NULL || chunk->size + it->size + CHUNK_MEDIUM_OVERHEAD <= newSize) {
+        return false;
+    }
+
+    if (chunk->size + it->size + CHUNK_MEDIUM_OVERHEAD - newSize <= sizeof(struct chunkMedium)) {
+        if (it->previous != NULL) {
+            it->previous->next = it->next;
+        }
+        if (it->next != NULL) {
+            it->next->previous = it->previous;
+        }
+        if (chunk->page->slices == it) {
+            chunk->page->slices = it->next;
+        }
+        chunk->size += it->size + CHUNK_MEDIUM_OVERHEAD;
+    } else {
+        struct chunkMedium * newIt = (void *) chunk + CHUNK_MEDIUM_OVERHEAD + newSize;
+        it->next->previous = newIt;
+        it->previous->next = newIt;
+        if (chunk->page->slices == it) {
+            chunk->page->slices = newIt;
+        }
+        memmove(newIt, it, sizeof(struct chunkMedium));
+        newIt->size = (((void *) it + it->size) - (void *) newIt) - CHUNK_MEDIUM_OVERHEAD;
+        chunk->size = newSize;
+    }
+    return true;
 }
 
 size_t zoneMedium_getAllocationSize(void * pointer) {
