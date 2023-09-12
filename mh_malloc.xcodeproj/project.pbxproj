@@ -17,7 +17,7 @@
 		BF4416E92A94C5F0000C2499 /* zone_large.h in Headers */ = {isa = PBXBuildFile; fileRef = BF4416E72A94C5F0000C2499 /* zone_large.h */; };
 		BF4416EA2A94C5F0000C2499 /* zone_large.c in Sources */ = {isa = PBXBuildFile; fileRef = BF4416E82A94C5F0000C2499 /* zone_large.c */; };
 		BF879D5B2A8BA0D700B1A298 /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = BF879D5A2A8BA0D700B1A298 /* test.c */; };
-		BF879D5F2A8BA12600B1A298 /* libft_malloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */; };
+		BF879D5F2A8BA12600B1A298 /* libmh_malloc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BFAC2CE92A583C3E000FC0EC /* libmh_malloc.dylib */; };
 		BF879D622A8BA54500B1A298 /* warn.h in Headers */ = {isa = PBXBuildFile; fileRef = BF879D602A8BA54400B1A298 /* warn.h */; };
 		BF879D632A8BA54500B1A298 /* warn.c in Sources */ = {isa = PBXBuildFile; fileRef = BF879D612A8BA54500B1A298 /* warn.c */; };
 		BFD752FC2A8E7A06008F1AD3 /* zone.h in Headers */ = {isa = PBXBuildFile; fileRef = BFD752FA2A8E7A06008F1AD3 /* zone.h */; };
@@ -64,7 +64,7 @@
 		BF879D602A8BA54400B1A298 /* warn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = warn.h; sourceTree = "<group>"; };
 		BF879D612A8BA54500B1A298 /* warn.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = warn.c; sourceTree = "<group>"; };
 		BFAACC392A9FAC3900804478 /* chunk_medium.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chunk_medium.h; sourceTree = "<group>"; };
-		BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libft_malloc.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFAC2CE92A583C3E000FC0EC /* libmh_malloc.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libmh_malloc.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFB4EA092A583CC5009376F1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BFB4EA0A2A583D20009376F1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BFB4EA0C2A583E73009376F1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF879D5F2A8BA12600B1A298 /* libft_malloc.dylib in Frameworks */,
+				BF879D5F2A8BA12600B1A298 /* libmh_malloc.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,7 +177,7 @@
 		BFAC2CEA2A583C3E000FC0EC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */,
+				BFAC2CE92A583C3E000FC0EC /* libmh_malloc.dylib */,
 				BF879D532A8BA0A400B1A298 /* test */,
 			);
 			name = Products;
@@ -234,9 +234,9 @@
 			productReference = BF879D532A8BA0A400B1A298 /* test */;
 			productType = "com.apple.product-type.tool";
 		};
-		BFAC2CE82A583C3E000FC0EC /* ft_malloc */ = {
+		BFAC2CE82A583C3E000FC0EC /* mh_malloc */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BFAC2CED2A583C3E000FC0EC /* Build configuration list for PBXNativeTarget "ft_malloc" */;
+			buildConfigurationList = BFAC2CED2A583C3E000FC0EC /* Build configuration list for PBXNativeTarget "mh_malloc" */;
 			buildPhases = (
 				BFAC2CE52A583C3E000FC0EC /* Headers */,
 				BFAC2CE62A583C3E000FC0EC /* Sources */,
@@ -246,9 +246,9 @@
 			);
 			dependencies = (
 			);
-			name = ft_malloc;
+			name = mh_malloc;
 			productName = ft_malloc;
-			productReference = BFAC2CE92A583C3E000FC0EC /* libft_malloc.dylib */;
+			productReference = BFAC2CE92A583C3E000FC0EC /* libmh_malloc.dylib */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
@@ -281,7 +281,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BFAC2CE82A583C3E000FC0EC /* ft_malloc */,
+				BFAC2CE82A583C3E000FC0EC /* mh_malloc */,
 				BF879D522A8BA0A400B1A298 /* test */,
 			);
 		};
@@ -316,7 +316,7 @@
 /* Begin PBXTargetDependency section */
 		BF879D5D2A8BA0F000B1A298 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BFAC2CE82A583C3E000FC0EC /* ft_malloc */;
+			target = BFAC2CE82A583C3E000FC0EC /* mh_malloc */;
 			targetProxy = BF879D5C2A8BA0F000B1A298 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -492,7 +492,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BFAC2CED2A583C3E000FC0EC /* Build configuration list for PBXNativeTarget "ft_malloc" */ = {
+		BFAC2CED2A583C3E000FC0EC /* Build configuration list for PBXNativeTarget "mh_malloc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BFAC2CEE2A583C3E000FC0EC /* Debug */,
