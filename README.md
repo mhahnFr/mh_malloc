@@ -18,7 +18,10 @@ The medium zone creates block of memory and splits them into smaller chunks as
 needed. When a chunk is given back to the allocator, the chunk is appended to
 the block it came from, if possible.
 
-### Why?
+### Large zone
+The large zone simply requests a sufficient number of bytes from the system.
+
+## Why?
 This project has been created since the [LeakSanitizer][2] needed its own allocator.
 
 © Copyright 2023 [mhahnFr][1]
