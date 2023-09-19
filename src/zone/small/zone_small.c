@@ -4,6 +4,14 @@
 
 #include "../chunk.h"
 
+/**
+ * @brief Returns a fresh chunk from the given page.
+ *
+ * If there is not enough space for a new chunk, `NULL` is returned.
+ *
+ * @param page the page to get a chunk from
+ * @return a chunk or `NULL`
+ */
 static inline struct chunk * zoneSmall_fromPage(struct pageHeader * page) {
     if (page->closestAvailable + sizeof(struct chunk) > (void *) page + page->size) {
         return NULL;
@@ -15,6 +23,12 @@ static inline struct chunk * zoneSmall_fromPage(struct pageHeader * page) {
     return toReturn;
 }
 
+/**
+ * Attempts to find a chunk of memory in the given page.
+ *
+ * @param page the page to search for a chunk
+ * @return a chunk of memory or `NULL` if the page has none
+ */
 static inline struct chunk * zoneSmall_findInPage(struct pageHeader * page) {
     if (page->slices == NULL) {
         return zoneSmall_fromPage(page);
@@ -29,6 +43,12 @@ static inline struct chunk * zoneSmall_findInPage(struct pageHeader * page) {
     return toReturn;
 }
 
+/**
+ * Attempts to find a chunk of memory already available in the given zone.
+ *
+ * @param self the zone object
+ * @return an available chunk or `NULL` if no chunk is available
+ */
 static inline struct chunk * zoneSmall_findFreeChunk(struct zone * self) {
     for (struct pageHeader * it = self->pages; it != NULL; it = it->next) {
         struct chunk * chunk = zoneSmall_findInPage(it);
