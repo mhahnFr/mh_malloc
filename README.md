@@ -21,10 +21,17 @@ the block it came from, if possible.
 ### Large zone
 The large zone simply requests a sufficient number of bytes from the system.
 
-## Why?
-This project has been created since the [LeakSanitizer][2] needed its own allocator.
+## How to use
+You can either download a compiled version [here][2].  
+Alternatively, you can build the library yourself:
+- Clone the repository: `git clone https://github.com/mhahnFr/mh_malloc.git`
+- and compile it: `cd mh_malloc && make`
+
+The Makefile comes with an integrated benchmark, run it with `make bench`.
+
+Then, you can simply link your code with the emitted library.
 
 © Copyright 2023 [mhahnFr][1]
 
 [1]: https://github.com/mhahnFr
-[2]: https://github.com/mhahnFr/LeakSanitizer
+[2]: https://github.com/mhahnFr/mh_malloc/releases
