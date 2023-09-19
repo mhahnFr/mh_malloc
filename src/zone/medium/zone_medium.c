@@ -5,6 +5,13 @@
 
 #include "chunk_medium.h"
 
+/**
+ * Creates a first allocation for the given page.
+ *
+ * @param page the page
+ * @param size the requested amount of bytes
+ * @return the sliced chunk
+ */
 static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * page, size_t size) {
     struct chunkMedium * toReturn = (void *) page + page->size - size - CHUNK_MEDIUM_OVERHEAD;
     toReturn->page = page;
@@ -27,6 +34,13 @@ static inline struct chunkMedium * slicer_firstAllocation(struct pageHeader * pa
     return toReturn;
 }
 
+/**
+ * Allocates a slice of memory from the given page.
+ *
+ * @param page the page
+ * @param size the amount of bytes to be allocated
+ * @return the chunk of memor or `NULL` if there is not enough room in the given page
+ */
 static inline struct chunkMedium * slicer_allocate(struct pageHeader * page, size_t size) {
     struct chunkMedium * biggest  = NULL;
     struct chunkMedium * smallest = NULL;
@@ -85,6 +99,12 @@ void * zoneMedium_allocate(struct zone * self, size_t size) {
     return chunkMedium_toPointer(slicer_firstAllocation(page, size));
 }
 
+/**
+ * Deallocates the given chunk for the given page.
+ *
+ * @param page the page the chunk comes from
+ * @param chunk the chunk to be deallocated
+ */
 static inline void slicer_deallocate(struct pageHeader * page, struct chunkMedium * chunk) {
     page->allocCount--;
     for (struct chunkMedium * it = page->slices; it != NULL; it = it->next) {
@@ -114,6 +134,12 @@ static inline void slicer_deallocate(struct pageHeader * page, struct chunkMediu
     page->slices = chunk;
 }
 
+/**
+ * Returns whether the given page is empty.
+ *
+ * @param page the page to be checked
+ * @return whether the given page is empty
+ */
 static inline bool slicer_empty(struct pageHeader * page) {
     return page->allocCount == 0;
 }
