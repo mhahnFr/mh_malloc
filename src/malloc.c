@@ -8,6 +8,7 @@
 
 #include "zone/zones.h"
 
+/** The available zones for the allocations. */
 static struct zones zones = {
     false,
     
