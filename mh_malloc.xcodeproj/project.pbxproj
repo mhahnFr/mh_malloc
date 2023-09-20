@@ -64,6 +64,7 @@
 		BF879D602A8BA54400B1A298 /* warn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = warn.h; sourceTree = "<group>"; };
 		BF879D612A8BA54500B1A298 /* warn.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = warn.c; sourceTree = "<group>"; };
 		BFAACC392A9FAC3900804478 /* chunk_medium.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = chunk_medium.h; sourceTree = "<group>"; };
+		BFABDC212ABB2EB500185E21 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BFAC2CE92A583C3E000FC0EC /* libmh_malloc.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libmh_malloc.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFB4EA092A583CC5009376F1 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		BFB4EA0A2A583D20009376F1 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -163,6 +164,7 @@
 		BFAC2CE02A583C3E000FC0EC = {
 			isa = PBXGroup;
 			children = (
+				BFABDC212ABB2EB500185E21 /* LICENSE */,
 				BF2310B12A58413B00AB9F35 /* include */,
 				BF2310B02A58412F00AB9F35 /* src */,
 				BFB4EA0C2A583E73009376F1 /* Makefile */,
@@ -268,7 +270,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BFAC2CE42A583C3E000FC0EC /* Build configuration list for PBXProject "ft_malloc" */;
+			buildConfigurationList = BFAC2CE42A583C3E000FC0EC /* Build configuration list for PBXProject "mh_malloc" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -483,7 +485,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BFAC2CE42A583C3E000FC0EC /* Build configuration list for PBXProject "ft_malloc" */ = {
+		BFAC2CE42A583C3E000FC0EC /* Build configuration list for PBXProject "mh_malloc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BFAC2CEB2A583C3E000FC0EC /* Debug */,
